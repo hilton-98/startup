@@ -9,7 +9,9 @@
 > - Use cmd + right arrow key to go to end of line in VSCode.
 
 ## Elevator Pitch
-My brother recently applied to medical school, and it is such a pain to keep everything organized! Every school wants different essays written, different amounts of fees paid, has different interview processes, and different deadlines for everything they want submitted! If you are only applying to one school then tracking that school's requirements might not bother you, but add a few more schools and it quickly becomes a headache! My application provides a central location for storing all the information about the application deadlines and requirements for graduate school applications.
+My brother recently applied to medical school, and it was such a pain for him to keep everything organized! Every school wants different essays written, different amounts of fees paid, has different interview processes, and different deadlines for everything they want submitted! If you are only applying to one school then tracking that school's requirements might not bother you, but add a few more schools and it quickly becomes a headache! My application provides a central location for storing all the information about the application deadlines and requirements for graduate school applications.
+
+![image](https://user-images.githubusercontent.com/60210286/215250464-3e3fc4f1-e02c-4659-8b1c-977b5e95af39.png)
 
 ### Key features:
 - Secure login over HTTPS
