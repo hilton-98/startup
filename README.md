@@ -7,3 +7,16 @@
 > - Use Dillinger for markdown editing.
 > - Practice more with GitHub.
 > - Use cmd + right arrow key to go to end of line in VSCode.
+
+## Elevator Pitch
+My brother recently applied to medical school, and it is such a pain to keep everything organized! Every school wants different essays written, different amounts of fees paid, has different interview processes, and different deadlines for everything they want submitted! If you are only applying to one school then tracking that school's requirements might not bother you, but add a few more schools and it quickly becomes a headache! My application provides a central location for storing all the information about the application deadlines and requirements for graduate school applications.
+
+### Key features:
+- Secure login over HTTPS
+- Ability to add different schools
+- Display of activities and deadlines
+- Data is persistently stored
+- Ability to sort activities by category (paying fees, writing essays, scheduling interviews, etc.)
+- Ability to sort activities by school.
+- Ability to sort activities by timeline.
+- Ability to add activities and deadlines (ideally this would web-scrape the requirements, but initially could just be a menu where the user can enter in the information.
