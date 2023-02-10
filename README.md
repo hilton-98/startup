@@ -25,4 +25,4 @@ My brother recently applied to medical school, and it was such a pain for him to
 
 ## SIMON-HTML
 - HTML won't complain if you type something wrong, it just won't do what you want it to, either.
-- Some tags (like "<main>, <div>, <span>") seem to have not effect other than semantics for reading. 
+- Some tags (like ''<main>, <div>, <span>") seem to have not effect other than semantics for reading. 
