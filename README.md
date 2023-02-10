@@ -22,3 +22,7 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Ability to sort activities by school.
 - Ability to sort activities by timeline.
 - Ability to add activities and deadlines (ideally this would web-scrape the requirements, but initially could just be a menu where the user can enter in the information.
+
+## SIMON-HTML
+- HTML won't complain if you type something wrong, it just won't do what you want it to, either.
+- Some tags (like <main>, <div>, <span>) seem to have not effect other than semantics for reading. 
