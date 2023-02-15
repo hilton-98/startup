@@ -26,3 +26,8 @@ My brother recently applied to medical school, and it was such a pain for him to
 ## SIMON-HTML
 - HTML won't complain if you type something wrong, it just won't do what you want it to, either.
 - Some tags (like ``<main>, <div>, <span>``) seem to have not effect other than semantics for reading. 
+
+## CSS-HTML
+- CSS works in a hierarchical manner - the style that is applied is *generally* the one that is closest to the element.
+- An html element can have multiple CSS classes applied to it.
+- You can save variables in ``:root {}`` using ``--my-variable``. These variables are accessed in your code using ``var(--my-variable)``. 
