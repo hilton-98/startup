@@ -31,3 +31,5 @@ My brother recently applied to medical school, and it was such a pain for him to
 - CSS works in a hierarchical manner - the style that is applied is *generally* the one that is closest to the element.
 - An html element can have multiple CSS classes applied to it.
 - You can save variables in ``:root {}`` using ``--my-variable``. These variables are accessed in your code using ``var(--my-variable)``. 
+- ViewPort is the part of the screen that is used to render the html/css in question. vh, for example, is viewport height.
+- Flex can be column or row.
