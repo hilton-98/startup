@@ -73,24 +73,29 @@ main {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 5px solid var(--primary-color);
+    height: 60px;
 }
   
 .content {
     flex: 5;
-}
-  
-.content h2 {
-    padding-left: 100px;
-    color: var(--primary-color);
-    font-size: 30px;
+    padding-top: 57px;
 }
   
 .content p {
     margin-left: 50px;
     margin-right: 50px;
-    padding-top: 5px;
-    border-top: 1px solid var(--secondary-color);
     text-indent: 40px;
+    padding-top: 10px;
+}
+
+.current-page {
+    color: var(--secondary-color) !important;
+    background-color: var(--primary-color);
+}
+
+.current-page:hover {
+    text-decoration: none; 
+    border-left: none !important;
 }
   
 .nav-links a {
