@@ -13,7 +13,7 @@ body {
   
   
 header {
-    color: white;
+    color: var(--secondary-color);
     background-color: var(--primary-color);
     text-align: center;
   
@@ -22,7 +22,7 @@ header {
   
 footer {
     text-align: center;
-    color: white;
+    color: var(--secondary-color);
     background-color: var(--primary-color);
     
     flex: 0 20px;
@@ -69,6 +69,7 @@ main {
   
 .controls h2 {
     text-align: center;
+    font-weight: bold;
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 5px solid var(--primary-color);
@@ -99,10 +100,25 @@ main {
     font-weight: bold;
     padding-left: 50px;
 }
-  
+
+
+.nav-links a:link { 
+    text-decoration: none; 
+    color: var(--primary-color);
+}
+
+
+.nav-links a:visited { 
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+
 .nav-links a:hover {
+    text-decoration: none; 
     border-left: solid 5px var(--primary-color);
 }
+
   
 .nav-links br {
     content: "";
