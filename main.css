@@ -147,12 +147,13 @@ main {
 
 
 
-
-
 .wrapper{
     width: calc(100% - 100px);
+    height: calc(100% - 57px);
     margin-left: 50px;
     margin-right: 50px;
+    margin-bottom: 50px;
+    border-radius: 120px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
@@ -163,6 +164,10 @@ main {
     align-items: center;
     padding: 25px 30px 10px;
     justify-content: space-between;
+    background-color: var(--secondary-color);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
 }
 
 
@@ -192,12 +197,13 @@ main {
 }
 
 .calendar-header .current-date {
+    text-transform: uppercase;
     font-size: 1.45rem;
     font-weight: 500;
     color: var(--primary-color);
 }
 
-.calenda {
+.calendar {
     padding: 20px;
 }
 
@@ -221,7 +227,12 @@ main {
 .calendar .weeks li {
     font-weight: 500;
     cursor: default;
+    text-transform: uppercase;
     color: var(--primary-color);
+}
+
+.weeks {
+    border-bottom: solid 1px var(--secondary-color);
 }
 
 .calendar .days li{
