@@ -279,6 +279,7 @@ main {
 }
 
 .homepage-controls {
+    text-align: right;
     background-color: var(--secondary-color);
     border-radius: 10px;
     width: calc(100% - 100px);
@@ -286,6 +287,7 @@ main {
     padding-bottom: 10px;
     margin: 50px;
     margin-top: 0px;
+    padding-right: 10px;
 }
 
 .details-btn {
