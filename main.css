@@ -60,6 +60,16 @@ main {
     }
 }
   
+.about-text {
+    align-items: center;
+    justify-content: center;
+}
+
+.app-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .controls {
     flex: 1;
     color: var(--primary-color);
