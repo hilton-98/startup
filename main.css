@@ -270,22 +270,34 @@ main {
     background: #f2f2f2;
 }
 
-.details-btn {
+.homepage-btn {
     background-color: var(--primary-color) !important;
     color: var(--secondary-color) !important;
     border-color: var(--primary-color) !important;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.homepage-controls {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    width: calc(100% - 100px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 50px;
+    margin-top: 0px;
+}
+
+.details-btn {
     position: absolute;
     bottom: 10px;
 
 }
 
 .remove-btn {
-    background-color: var(--primary-color) !important;
-    color: var(--secondary-color) !important;
-    border-color: var(--primary-color) !important;
     position: absolute;
     bottom: 10px;
-    left: 95px;
+    left: 110px;
 }
 
 .new-tag {
