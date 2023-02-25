@@ -239,7 +239,12 @@ main {
     z-index: 1;
     cursor: pointer;
     position: relative;
-    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: solid 1px var(--primary-color);
+}
+.days {
+    border: solid 1px var(--primary-color);
 }
 
 .days li.inactive {
