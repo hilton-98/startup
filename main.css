@@ -162,12 +162,12 @@ main {
 .calendar-header {
     display: flex;
     align-items: center;
-    padding: 25px 30px 10px;
     justify-content: space-between;
     background-color: var(--secondary-color);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-
+    text-indent: none !important;
+    padding-right: 10px;
 }
 
 
@@ -216,6 +216,9 @@ main {
 
 .calendar .days {
     margin-bottom: 20px;
+    padding: 0px;
+    border: solid 1px var(--primary-color);
+
 }
 
 .calendar li {
@@ -233,6 +236,7 @@ main {
 
 .weeks {
     border-bottom: solid 1px var(--secondary-color);
+    padding-left: 0px;
 }
 
 .calendar .days li{
@@ -241,9 +245,6 @@ main {
     position: relative;
     padding-top: 30px;
     padding-bottom: 30px;
-    border: solid 1px var(--primary-color);
-}
-.days {
     border: solid 1px var(--primary-color);
 }
 
