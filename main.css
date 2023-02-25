@@ -337,3 +337,134 @@ main {
     margin: 0px !important;
     padding: 0px !important;
 }
+
+
+
+
+/* Include the padding and border in an element's total width and height */
+.to-do-list {
+    box-sizing: border-box;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.to-do-list h2 {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+  
+  /* Remove margins and padding from the list */
+.to-do-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+  /* Style the list items */
+.to-do-list ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: var(--secondary-color);
+    font-size: 18px;
+    transition: 0.2s;
+  
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+  /* Set all odd list items to a different color (zebra-stripes) */
+.to-do-list ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+  
+  /* Darker background-color on hover */
+.to-do-list ul li:hover {
+    background: #ddd;
+}
+  
+  /* When clicked on, add a background color and strike out text */
+.to-do-list ul li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+}
+  
+/* Add a "checked" mark when clicked on */
+.to-do-list ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+  
+/* Style the close button */
+.to-do-list .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+}
+  
+.to-do-list .close:hover {
+    background-color: #f44336;
+    color: white;
+}
+  
+/* Style the header */
+.to-do-list .header {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    padding: 30px 40px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+  
+/* Clear floats after the header */
+.to-do-list .header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+  
+/* Style the input */
+.to-do-list input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+  
+/* Style the "Add" button */
+.to-do-list .addBtn {
+    padding: 10px;
+    width: 25%;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+  
+.to-do-list .addBtn:hover {
+    background-color: #bbb;
+}
