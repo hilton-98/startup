@@ -27,9 +27,17 @@ My brother recently applied to medical school, and it was such a pain for him to
 - HTML won't complain if you type something wrong, it just won't do what you want it to, either.
 - Some tags (like ``<main>, <div>, <span>``) seem to have not effect other than semantics for reading. 
 
-## CSS-HTML
+## SIMON-CSS
 - CSS works in a hierarchical manner - the style that is applied is *generally* the one that is closest to the element.
 - An html element can have multiple CSS classes applied to it.
 - You can save variables in ``:root {}`` using ``--my-variable``. These variables are accessed in your code using ``var(--my-variable)``. 
 - ViewPort is the part of the screen that is used to render the html/css in question. vh, for example, is viewport height.
 - Flex can be column or row.
+
+## CSS-HTML
+- Use ``!important`` to override higher precedence and make sure your styling gets applied. Generally not good practice, but sometimes very useful.
+- Remember that ``margin`` goes outside the border, while ``padding`` goes inside.
+- Caddy reads files directly from public/html. Don't put your index.html inside another folder!
+- It's a total pain to get things to center vertically. Still haven't figured this out quite...
+- Position: absolute is NOT absolute on the entire page, just absolute relative to it's parent.
+- calc(100% - xpx) is useful for getting an element to fill up all avalable space. There is probably a better way to do this, but it works pretty well.
