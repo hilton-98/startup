@@ -41,3 +41,9 @@ My brother recently applied to medical school, and it was such a pain for him to
 - It's a total pain to get things to center vertically. Still haven't figured this out quite...
 - Position: absolute is NOT absolute on the entire page, just absolute relative to it's parent.
 - calc(100% - xpx) is useful for getting an element to fill up all avalable space. There is probably a better way to do this, but it works pretty well.
+
+## SIMON-JAVASCRIPT
+- Include scripts at the bottom of document if they use specific HTML elements.
+- User document.createElement() and myElement.appendChild() to add elements into the HTML.
+- Use localStorage to store things in the browser and have them persist between refreshes/reloading the website. Add things in key-value pairs.
+- JSON.parse() and JSON.stringify() are built into JavaScript and are extremely useful for working with JSON strings.
