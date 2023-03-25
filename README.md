@@ -60,3 +60,9 @@ My brother recently applied to medical school, and it was such a pain for him to
   var apiRouter = express.Router();
   app.use(`/api`, apiRouter); -> this gives a base url for our api.
 ```
+## SIMON-DB
+- You can see environment variables with bash command printenv.
+- $VARIABLE_NAME lets you use them in a bash script or command.
+- Keep your password, username, etc. out of your code! You don't want these on github where the world can find them.
+- MongoDB stores stuff as JSON objects.
+- Because MongoDB doesn't use SQL, there are no joins. Also, duplicate rows are totally fine.
