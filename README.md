@@ -56,5 +56,7 @@ My brother recently applied to medical school, and it was such a pain for him to
 - next() function calls the function that's below in the file. The next one we told the app about, at least.
 - middleware functions are ones that you can tell your app to use always.
 - app.use(express.static("directory")) easily handles html requests for that directory.
- ```var apiRouter = express.Router();
+```
+  var apiRouter = express.Router();
   app.use(`/api`, apiRouter); -> this gives a base url for our api.
+```
