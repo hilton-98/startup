@@ -47,3 +47,14 @@ My brother recently applied to medical school, and it was such a pain for him to
 - User document.createElement() and myElement.appendChild() to add elements into the HTML.
 - Use localStorage to store things in the browser and have them persist between refreshes/reloading the website. Add things in key-value pairs.
 - JSON.parse() and JSON.stringify() are built into JavaScript and are extremely useful for working with JSON strings.
+
+
+## SIMON-SERVICE
+- LocalStorage is still nice, even with a back-end in node, because you can keep stuff for when you go offline.
+- Put fetches in try/catch.
+- Still need to figure out how to share code files between front-end and back-end.
+- next() function calls the function that's below in the file. The next one we told the app about, at least.
+- middleware functions are ones that you can tell your app to use always.
+- app.use(express.static("directory")) easily handles html requests for that directory.
+- var apiRouter = express.Router();
+  app.use(`/api`, apiRouter); -> this gives a base url for our api.
