@@ -66,3 +66,13 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Keep your password, username, etc. out of your code! You don't want these on github where the world can find them.
 - MongoDB stores stuff as JSON objects.
 - Because MongoDB doesn't use SQL, there are no joins. Also, duplicate rows are totally fine.
+
+## SIMON-LOGIN
+- You can install node packages all at once with command npm install express uuid etc.
+- AuthTokens are used instead of passing user information back and forth because it's more secure.
+- Cookies are used to pass authtoken info
+- Store passwords as hashes, not the actual password.
+- httpOnly tells the browser to not allow JavaScript running on the browser to read the cookie.
+- secure requires HTTPS to be used when sending the cookie back to the server.
+- sameSite will only return the cookie to the domain that generated it.
+- a GetMe endpoint is common, to create credentials and login using those credentials.
