@@ -76,3 +76,14 @@ My brother recently applied to medical school, and it was such a pain for him to
 - secure requires HTTPS to be used when sending the cookie back to the server.
 - sameSite will only return the cookie to the domain that generated it.
 - a GetMe endpoint is common, to create credentials and login using those credentials.
+
+## SIMON-WEB-SOCKET
+- NPM install ws
+- Web Sockets are secure two-way communication channels. This is a totally different architecture than the client-server interactions.
+- Web Sockets are always only between two computers. So, if you have an app with a server and multiple clients, client-client communication must pass through the server.
+- Use wss = new WebSocketServer({noServer: true});
+- User wss.on('connection' (ws) => {};
+- In the above function, you can add ws.on('someStringHere', () => {}) for other functions.
+- Using setInterval(() => {}, x); runs a function every x ms.
+- Checking all the connections to see if they are still active is a good idea.
+
