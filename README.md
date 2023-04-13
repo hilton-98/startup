@@ -87,3 +87,12 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Using setInterval(() => {}, x); runs a function every x ms.
 - Checking all the connections to see if they are still active is a good idea.
 
+# SIMON-REACT
+- Run npm start to run React app.
+- I need to run both the back-end service (index.js) and the front-end react app (index.jsx) for the app to run correctly.
+- React allows for components to be reused (for example, we only have to define our header/footer once in react, where we had to define it for each page in straight html).
+- The service needs it's own node_modules, and react needs it's own node_modules.
+- Use [stateVariable, stateVariableSetterFunction] = useState(initalState) to hold state.
+- Return the HTML in react. Use {} to include variables.
+- Use className="" instead of class="" in react. This is because the jsx is a mix of XML and JavaScript, and class is a reserved keyword already.
+
