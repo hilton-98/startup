@@ -87,7 +87,7 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Using setInterval(() => {}, x); runs a function every x ms.
 - Checking all the connections to see if they are still active is a good idea.
 
-# SIMON-REACT
+## SIMON-REACT
 - Run npm start to run React app.
 - I need to run both the back-end service (index.js) and the front-end react app (index.jsx) for the app to run correctly.
 - React allows for components to be reused (for example, we only have to define our header/footer once in react, where we had to define it for each page in straight html).
