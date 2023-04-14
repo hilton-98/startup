@@ -7,28 +7,27 @@ const navLinkList = [
 
 
 export function addSidebar(sideBarEl, currPageName) {
-
-    sideBarEl.className = "controls";
     
-        const sideBarHeaderEl = document.createElement('h2');
-        sideBarHeaderEl.className = "text-uppercase";
-        sideBarHeaderEl.textContent = "Menu";
-    
-        const navLinksEl = document.createElement('div');
-        navLinksEl.className = "nav-links";
+    const sideBarHeaderEl = document.createElement('h2');
+    sideBarHeaderEl.className = "sidebar-header";
+    sideBarHeaderEl.textContent = "Menu";
 
-            for (const navLink of navLinkList) {
+    const navLinksEl = document.createElement('div');
+    navLinksEl.className = "nav-links";
 
-                const navLinkEl = document.createElement('a');
-                navLinkEl.href = navLink.path;
-                navLinkEl.textContent = navLink.name;
+    for (const navLink of navLinkList) {
 
-                if (navLink.name === currPageName) {
-                    navLinkEl.className = "current-page";
-                }
+        const navLinkEl = document.createElement('a');
+        navLinkEl.className = "nav-link";
+        navLinkEl.href = navLink.path;
+        navLinkEl.textContent = navLink.name;
 
-                navLinksEl.appendChild(navLinkEl);
-            }
+        if (navLink.name === currPageName) {
+            navLinkEl.className += " current-page-link";
+        }
+
+        navLinksEl.appendChild(navLinkEl);
+    }
 
     sideBarEl.appendChild(sideBarHeaderEl);
     sideBarEl.appendChild(navLinksEl);

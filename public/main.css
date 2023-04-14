@@ -60,6 +60,7 @@ footer {
     transform: translateY(-50%);
 }
 
+/* Footer styles */
 .git-hub-link {
     float: right;
     color: var(--secondary-color);
@@ -68,23 +69,6 @@ footer {
 .author-name {
     float: left;
 }
-
-.controls {
-    flex: 1;
-    min-width: 200px;
-    color: var(--primary-color);
-  
-    background-color: var(--secondary-color);
-}
-  
-.controls h2 {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 5px solid var(--primary-color);
-    height: 60px;
-}
   
 .content {
     flex: 5;
@@ -92,58 +76,6 @@ footer {
     margin-right: 25px;
     margin-left: 25px;    
 }
-  
-.content p {
-    padding-top: 10px;
-    margin-right: 25px;
-    margin-left: 25px;
-}
-
-.current-page {
-    color: var(--secondary-color) !important;
-    background-color: var(--primary-color);
-}
-
-.current-page:hover {
-    text-decoration: none; 
-    border-left: none !important;
-}
-  
-.nav-links a {
-    display: block;
-    text-align: left;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding-left: 50px;
-}
-
-
-.nav-links a:link { 
-    text-decoration: none; 
-    color: var(--primary-color);
-}
-
-
-.nav-links a:visited { 
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-
-.nav-links a:hover {
-    text-decoration: none; 
-    border-left: solid 5px var(--primary-color);
-}
-  
-.nav-links br {
-    content: "";
-    margin: 0px;
-    padding: 2px;
-    display: block;
-    font-size: 24%;
-}
-
-
 
 .wrapper{
     width: calc(100% - 100px);
