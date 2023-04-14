@@ -71,20 +71,128 @@ function addMySchools(schools) {
 const bodyEl = document.querySelector('body');
 const headerEl = bodyEl.querySelector('header');
 const mainEl = bodyEl.querySelector('main');
+const contentEl = mainEl.querySelector('.content');
+const loginEl = mainEl.querySelector('.login');
 const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 
-addHeader(headerEl);
-addSidebar(sidebarEl, "Home");
-addFooter(footerEl);
 
-function init() {
-    addHeader(headerEl);
+const loginBtnEl = document.getElementById('login-btn');
+const createAccountBtnEl = document.getElementById('create-account-btn');
+const usernameEl = document.getElementById('username-input');
+const passwordEl = document.getElementById('password-input');
+
+let userInfoEl = null;
+let usernameDisplayEl = null;
+let logoutBtnEl = null;
+
+
+function isValidUsernameAndPassword() {
+    return (usernameEl.value !== '' && passwordEl.value !== '');
+
+}
+
+function handleLogin() {
+    console.log("handle login");
+
+    console.log('username: ' + usernameEl.value);
+    console.log('password: ' + passwordEl.value);
+
+
+    if (!isValidUsernameAndPassword()) {
+        console.log("invalid");
+        return;
+    }
+
+    login();
+}
+
+function handleCreateAccount() {
+    console.log("handle create account");
+    if (!isValidUsernameAndPassword()) {
+        console.log("invalid");
+        return;
+    }
+
+    login();
+}
+
+function handleLogout() {
+    console.log('handle logout');
+    logout();
+}
+
+
+function initLoggedIn(username) {
+
+    console.log("initting logged in");
+    console.log('username: ' + username);
+
+    addHeader(headerEl, username);
+    addSidebar(sidebarEl, "Home");
     addFooter(footerEl);
+
+    usernameDisplayEl = document.getElementById('username-display');
+    logoutBtnEl = document.getElementById('logout-btn');
+    userInfoEl = document.getElementById('user-info');
+
+    loginEl.hidden = true;
+    contentEl.hidden = false;
+    sidebarEl.hidden = false;
+    userInfoEl.hidden = false;
+
+    loginBtnEl.addEventListener('click', handleLogin);
+    createAccountBtnEl.addEventListener('click', handleCreateAccount);
+    logoutBtnEl.addEventListener('click', handleLogout);
+}
+
+function initLoggedOut() {
+
+    addHeader(headerEl, '');
+    addSidebar(sidebarEl, "Home");
+    addFooter(footerEl);
+
+    contentEl.hidden = true;
+    sidebarEl.hidden = true;
+
+    usernameDisplayEl = document.getElementById('username-display');
+    logoutBtnEl = document.getElementById('logout-btn');
+    userInfoEl = document.getElementById('user-info');
+
+    userInfoEl.hidden = true;
+
+    loginBtnEl.addEventListener('click', handleLogin);
+    createAccountBtnEl.addEventListener('click', handleCreateAccount);
+    logoutBtnEl.addEventListener('click', handleLogout);
 }
 
 function login() {
-    addSidebar(sidebarEl, "Home");
+    loginEl.hidden = true;
+    contentEl.hidden = false;
+    sidebarEl.hidden = false;
+    userInfoEl.hidden = false;
+
+
+    const username = "Logged In: " + usernameEl.value;
+    localStorage.setItem('username', username);
+
+    usernameDisplayEl.textContent = username;
 }
 
-init();
+function logout() {
+    loginEl.hidden = false;
+    contentEl.hidden = true;
+    sidebarEl.hidden = true;
+    userInfoEl.hidden = true;
+
+
+    usernameDisplayEl.textContent = '';
+    localStorage.setItem('username', '');
+}
+
+const username = localStorage.getItem('username');
+if (username && username !== '') {
+    initLoggedIn(username);
+} else {
+    initLoggedOut();
+}

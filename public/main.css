@@ -8,10 +8,14 @@ body {
 }
   
 header {
+    /* display: flex;
+    flex-direction: row; */
     color: var(--secondary-color);
     background-color: var(--primary-color);
     text-align: center;
-  
+    justify-content: center;
+    width: 100%;
+    
     flex: 0 50px;
 }
 
@@ -67,6 +71,30 @@ footer {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+    width: 100%;
+    padding: 10px;
+}
+
+.logout-action-btn {
+    border-radius: 5px;
+    margin-top: 3px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 80px;
+    margin-left: 10px;
+}
+
+.username-display {
+    margin-top: 5px;
+} 
 
 /* Footer styles */
 .git-hub-link {
@@ -146,4 +174,32 @@ footer {
 .row {
     margin: 0px !important;
     padding: 0px !important;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%
+}
+
+.login-actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-input {
+    display: flex;
+    flex-direction: row;
+}
+
+.login-action-btn {
+    border-radius: 5px;
+    margin-top: 3px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    font-weight: bold;
 }

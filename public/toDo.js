@@ -176,7 +176,7 @@ function populateToDoList(tblBodyEl, schools) {
 }
 
 function init() {
-    addHeader(headerEl);
+    addHeader(headerEl, localStorage.getItem('username'));
     addSidebar(sidebarEl, "To Do");
 
     const schoolsJSON = localStorage.getItem('schools');

@@ -10,7 +10,7 @@ const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 
 function init() {
-    addHeader(headerEl);
+    addHeader(headerEl, localStorage.getItem('username'));
     addSidebar(sidebarEl, "Calendar");
     addFooter(footerEl);
 }

@@ -9,6 +9,10 @@ const mainEl = bodyEl.querySelector('main');
 const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 
-addHeader(headerEl);
-addSidebar(sidebarEl, "About");
-addFooter(footerEl);
+function init() {
+    addHeader(headerEl, localStorage.getItem('username'));
+    addSidebar(sidebarEl, "About");
+    addFooter(footerEl);
+}
+
+init();
