@@ -1,0 +1,86 @@
+/* Include the padding and border in an element's total width and height */
+.to-do-list-container {
+    margin-left: 50px;
+    margin-right: 50px;
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.to-do-list-action-bar {
+    background-color: var(--secondary-color);
+    width: calc(100% - 100px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+}
+
+.action-bar-btn {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    width: 100px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.to-do-list-table {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.to-do-list-table-title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.to-do-list-table-element {
+    cursor: pointer;
+    width: calc(100% / 3);
+
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    border: solid 2px var(--primary-color);
+}
+ 
+  /* Set all odd list items to a different color (zebra-stripes) */
+.to-do-list-table tr:nth-child(odd) {
+    background: #f9f9f9;
+}
+  
+  /* Darker background-color on hover */
+.to-do-list-container tr:hover {
+    background: #ddd;
+}
+
+.selected-row {
+    background-color: var(--primary-color) !important;
+    color: var(--secondary-color);
+}
+
+.school-input {
+    text-align: center;
+}
+
+.event-name-input {
+    text-align: center;
+}
+
+.event-date-input {
+    text-align: center;
+}

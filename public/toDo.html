@@ -8,6 +8,8 @@
 
         <link rel="stylesheet" href="main.css" />
         <link rel="stylesheet" href="sidebar.css" />
+        <link rel="stylesheet" href="toDo.css" />
+
         <!-- Include bootstrap CSS framework -->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -25,21 +27,26 @@
 
           <section class="content">
 
-            <div class="to-do-list">
-                <div id="myDIV" class="header">
-                    <h2>TO DO LIST</h2>
-                    <input type="text" id="myInput" placeholder="Title...">
-                    <span onclick="newElement()" class="addBtn">Add</span>
+            <div class="to-do-list-container">
+
+                <div class="to-do-list-action-bar">
+                    <span class="to-do-list-table-title">To-do-list</span>
+                    <span id="add-btn" class="action-bar-btn">Add</span>
+                    <span id="remove-btn" class="action-bar-btn">Remove</span>
+                    <span id="edit-btn" class="action-bar-btn">Edit</span>
+                    <span id="save-btn" class="action-bar-btn">Save</span>
                 </div>
-                
-                <ul id="myUL">
-                    <li>Hit the gym</li>
-                    <li class="checked">Pay bills</li>
-                    <li>Meet George</li>
-                    <li>Buy eggs</li>
-                    <li>Read a book</li>
-                    <li>Organize office</li>
-                </ul>
+
+                <table class="to-do-list-table">
+                    <thead class="to-do-list-table-header">
+                        <tr>
+                            <th class="to-do-list-table-element">School</th>
+                            <th class="to-do-list-table-element">Event</th>
+                            <th class="to-do-list-table-element">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="to-do-list-table-body"></tbody>
+                </table>
             </div>
           </section>
         </main>

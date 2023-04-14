@@ -9,6 +9,10 @@ const mainEl = bodyEl.querySelector('main');
 const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 
-addHeader(headerEl);
-addSidebar(sidebarEl, "Calendar");
-addFooter(footerEl);
+function init() {
+    addHeader(headerEl);
+    addSidebar(sidebarEl, "Calendar");
+    addFooter(footerEl);
+}
+
+init();
