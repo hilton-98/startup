@@ -1,4 +1,5 @@
 import { addHeader } from "./components/header.js";
+import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 
 const COLS_PER_ROW = 3;
@@ -20,7 +21,7 @@ const schools = [
     },
 ];
 
-function populateMySchools(schools) {
+function addMySchools(schools) {
     
     mySchoolsEl.innerHTML = "";
 
@@ -68,7 +69,11 @@ function populateMySchools(schools) {
 }
 
 const bodyEl = document.querySelector('body');
+const headerEl = bodyEl.querySelector('header');
+const mainEl = bodyEl.querySelector('main');
+const sidebarEl = mainEl.querySelector('.sidebar');
+const footerEl = bodyEl.querySelector('footer');
 
-addHeader(bodyEl.querySelector('header'));
-populateMySchools(schools);
-addFooter(bodyEl.querySelector('footer'));
+addHeader(headerEl);
+addSidebar(sidebarEl, "Home");
+addFooter(footerEl);

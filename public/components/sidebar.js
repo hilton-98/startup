@@ -1,6 +1,12 @@
+const navLinkList = [
+    { name: "Home", path: "./index.html" },
+    { name: "To Do", path: "./toDo.html" },
+    { name: "Calendar", path: "./calendar.html" },
+    { name: "About", path: "./about.html" },
+]
 
 
-export function addSidebar(sideBarEl) {
+export function addSidebar(sideBarEl, currPageName) {
 
     sideBarEl.className = "controls";
     
@@ -11,24 +17,18 @@ export function addSidebar(sideBarEl) {
         const navLinksEl = document.createElement('div');
         navLinksEl.className = "nav-links";
 
-            const homeLinkEl = document.createElement('a');
-            homeLinkEl.href = "index.html";
-            homeLinkEl.textContent = "Home";
-            const toDoLinkEl = document.createElement('a');
-            toDoLinkEl.href = "toDo.html";
-            toDoLinkEl.textContent = "To do";
-            const calendarLinkEl = document.createElement('a');
-            calendarLinkEl.href = "calendar.html";
-            calendarLinkEl.textContent = "Calendar";
-            const aboutLinkEl = document.createElement('a');
-            aboutLinkEl.href = "about.html";
-            aboutLinkEl.textContent = "About";
-            aboutLinkEl.className = "current-page";
+            for (const navLink of navLinkList) {
 
-        navLinksEl.appendChild(homeLinkEl);
-        navLinksEl.appendChild(toDoLinkEl);
-        navLinksEl.appendChild(calendarLinkEl);
-        navLinksEl.appendChild(aboutLinkEl);
+                const navLinkEl = document.createElement('a');
+                navLinkEl.href = navLink.path;
+                navLinkEl.textContent = navLink.name;
+
+                if (navLink.name === currPageName) {
+                    navLinkEl.className = "current-page";
+                }
+
+                navLinksEl.appendChild(navLinkEl);
+            }
 
     sideBarEl.appendChild(sideBarHeaderEl);
     sideBarEl.appendChild(navLinksEl);

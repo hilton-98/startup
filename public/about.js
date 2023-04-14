@@ -10,5 +10,5 @@ const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 
 addHeader(headerEl);
-addSidebar(sidebarEl);
+addSidebar(sidebarEl, "About");
 addFooter(footerEl);

@@ -20,35 +20,26 @@
 
     <body>
         <header></header>
-
         <main class="bg-secondary">
-            <section class="controls">
-                <h2 class="text-uppercase">Menu</h2>
-                <div class="nav-links">
-                    <a class="current-page" href="index.html">Home</a></br>
-                    <a href="./toDo.html">To do</a></br>
-                    <a href="./calendar.html">Calendar</a></br>
-                    <a href="./about.html">About</a></br>
+            <section class="sidebar"></section>
+
+            <section class="content">
+
+                <div class="homepage-controls">
+                    <btn class="btn btn-primary homepage-btn add-a-school-btn">
+                        Add a school
+                    </btn>
+                    <btn class="btn btn-primary homepage-btn add-a-school-btn">
+                        Add an event
+                    </btn>
                 </div>
-          </section>
 
-          <section class="content">
+                <div id="my-schools" class="demo-box container"></div>
 
-            <div class="homepage-controls">
-                <btn class="btn btn-primary homepage-btn add-a-school-btn">
-                    Add a school
-                </btn>
-                <btn class="btn btn-primary homepage-btn add-a-school-btn">
-                    Add an event
-                </btn>
-            </div>
-
-            <div id="my-schools" class="demo-box container"></div>
-
-          </section>
+            </section>
         </main>
-
         <footer></footer>
+        
         <script src="./index.js" type="module"></script>
     </body>
 </html>
