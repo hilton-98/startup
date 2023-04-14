@@ -10,7 +10,7 @@
 
 .to-do-list-action-bar {
     background-color: var(--secondary-color);
-    width: calc(100% - 100px);
+    width: calc(100% - 80px);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,6 +18,13 @@
     border-radius: 10px;
     margin: 20px;
     padding: 10px;
+}
+
+.action-bar-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .action-bar-btn {
@@ -29,6 +36,7 @@
     text-transform: uppercase;
     border-radius: 10px;
     font-weight: bold;
+    margin: 5px;
 }
 
 .to-do-list-table {
@@ -83,4 +91,23 @@
 
 .event-date-input {
     text-align: center;
+}
+
+@media (orientation: portrait) {
+
+    .to-do-list-action-bar {
+      flex-direction: column;
+      width: calc(100%);
+      margin: 0px;
+      margin-bottom: 10px;
+    }
+
+    .action-bar-btn {
+        width: 80px;
+    }
+
+    .to-do-list-container {
+        width: 100%;
+        margin: 0px;
+    }
 }

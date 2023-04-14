@@ -77,3 +77,14 @@ const footerEl = bodyEl.querySelector('footer');
 addHeader(headerEl);
 addSidebar(sidebarEl, "Home");
 addFooter(footerEl);
+
+function init() {
+    addHeader(headerEl);
+    addFooter(footerEl);
+}
+
+function login() {
+    addSidebar(sidebarEl, "Home");
+}
+
+init();
