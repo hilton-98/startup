@@ -1,6 +1,15 @@
 const APP_TITLE = "Runway";
 
 
+function handleLogout(usernameDisplayEl) {
+    console.log("Logging out?");
+
+    usernameDisplayEl.textContent = '';
+    localStorage.setItem('username', '');
+    localStorage.setItem('schools', '');
+    window.location.replace("./index.html");
+}
+
 export function addHeader(headerEl, username) {
 
     headerEl.className = "container-fluid";
@@ -22,6 +31,7 @@ export function addHeader(headerEl, username) {
     logoutButtonEl.id = "logout-btn";
     logoutButtonEl.className = "logout-action-btn";
     logoutButtonEl.textContent = "Logout";
+    logoutButtonEl.addEventListener('click', () => handleLogout(usernameDisplayEl));
 
     userInfoEl.append(usernameDisplayEl, logoutButtonEl);
 

@@ -184,10 +184,6 @@ function logout() {
     contentEl.hidden = true;
     sidebarEl.hidden = true;
     userInfoEl.hidden = true;
-
-
-    usernameDisplayEl.textContent = '';
-    localStorage.setItem('username', '');
 }
 
 const username = localStorage.getItem('username');

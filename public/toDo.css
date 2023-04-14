@@ -66,14 +66,17 @@
     border: solid 2px var(--primary-color);
 }
  
+.to-do-list-table th tr {
+    background: var(--secondary-color);
+}
   /* Set all odd list items to a different color (zebra-stripes) */
-.to-do-list-table tr:nth-child(odd) {
-    background: #f9f9f9;
+.to-do-list-table tr:nth-child(even) {
+    background: hsl(0, 0%, 85%);
 }
   
   /* Darker background-color on hover */
 .to-do-list-container tr:hover {
-    background: #ddd;
+    background: #bbb;
 }
 
 .selected-row {

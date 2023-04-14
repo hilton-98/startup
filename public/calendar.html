@@ -28,70 +28,50 @@
           <section class="sidebar"></section>
 
           <section class="content">
-            <div class="calendar-container">
+            <div class="calendar-info-container">
+              <div class="calendar-container">
 
-              <div class="calendar-header">
-                <p class="current-date">
-                  February 24, 2023
-                </p>
-                <div class="icons">
-                  <span id="prev" class="material-symbols-rounded">chevron_left</span>
-                  <span id="next" class="material-symbols-rounded">chevron_right</span>
+                <div class="calendar-header">
+                  <p class="current-date">
+                    February 24, 2023
+                  </p>
+                  <div class="icons">
+                    <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                    <span id="next" class="material-symbols-rounded">chevron_right</span>
+                  </div>
+                </div>
+                <div class="calendar">
+  
+                  <ul class="weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                  </ul>
+  
+                  <ul class="days"></ul>
+  
                 </div>
               </div>
-              <div class="calendar">
-
-                <ul class="weeks">
-                  <li>Sun</li>
-                  <li>Mon</li>
-                  <li>Tue</li>
-                  <li>Wed</li>
-                  <li>Thu</li>
-                  <li>Fri</li>
-                  <li>Sat</li>
-                </ul>
-
-                <ul class="days">
-                  <li class="inactive">29</li>
-                  <li class="inactive">30</li>
-                  <li class="inactive">31</li>
-                  <li class>1</li>
-                  <li class>2</li>
-                  <li class>3</li>
-                  <li class>4</li>
-                  <li class>5</li>
-                  <li class>6</li>
-                  <li class>7</li>
-                  <li class>8</li>
-                  <li class>9</li>
-                  <li class>10</li>
-                  <li class>11</li>
-                  <li class>12</li>
-                  <li class>13</li>
-                  <li class>14</li>
-                  <li class>15</li>
-                  <li class>16</li>
-                  <li class>17</li>
-                  <li class>18</li>
-                  <li class>19</li>
-                  <li class>20</li>
-                  <li class>21</li>
-                  <li class>22</li>
-                  <li class>23</li>
-                  <li class="active">24</li>
-                  <li class>25</li>
-                  <li class>26</li>
-                  <li class>27</li>
-                  <li class>28</li>
-                  <li class="inactive">1</li>
-                  <li class="inactive">2</li>
-                  <li class="inactive">3</li>
-                  <li class="inactive">4</li>
-                </ul>
-
+              <div class="selected-day-container">
+                <div class="selected-day-title">
+                  <span class="selected-day-label">Events for: </span>
+                  <span id="selected-day"></span>
+                </div>
+                <table class="events-table">
+                  <thead>
+                      <tr>
+                          <th class="events-table-element">School</th>
+                          <th class="events-table-element">Event</th>
+                      </tr>
+                  </thead>
+                  <tbody id="events-table-body"></tbody>
+              </table>
               </div>
             </div>
-
           </section>
         </main>
         <footer></footer>

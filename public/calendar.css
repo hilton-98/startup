@@ -3,7 +3,7 @@
     height: calc(100% - 57px);
     margin-left: 50px;
     margin-right: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     border-radius: 120px;
     background: #fff;
     border-radius: 10px;
@@ -53,6 +53,15 @@
     font-size: 1.45rem;
     font-weight: 500;
     color: var(--primary-color);
+    padding-top: 10px;
+}
+
+.selected-date {
+    text-transform: uppercase;
+    font-size: 1.45rem;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    color: var(--secondary-color) !important;
     padding-top: 10px;
 }
 
@@ -127,4 +136,73 @@
 
 .days li:not(.active):hover::before {
     background: #f2f2f2;
+}
+
+
+.selected-day-container {
+
+    width: calc(100% - 100px);
+    height: calc(100% - 57px);
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    border-radius: 120px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.selected-day-title {
+    display: flex;
+    flex-direction: row;
+    color: var(--primary-color);
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.selected-day-label {
+    padding-right: 5px;
+}
+
+
+
+.events-table-element {
+    width: calc(100% / 5);
+
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    border: solid 2px var(--primary-color);
+}
+ 
+.events-table th tr {
+    background: var(--secondary-color);
+}
+  /* Set all odd list items to a different color (zebra-stripes) */
+.events-table tr:nth-child(even) {
+    background: hsl(0, 0%, 85%);
+}
+  
+  /* Darker background-color on hover */
+.events-table tr:hover {
+    background: #bbb;
+}
+
+.events-table {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    border: none;
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    text-align: center;
 }

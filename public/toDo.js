@@ -37,7 +37,7 @@ function handleAddEvent() {
     tblEventNameEl.appendChild(getInputEl("event-name-input", "text"));
 
     const tblEventDateEl = getTableElement();
-    tblEventDateEl.appendChild(getInputEl("event-date-input", "text"));
+    tblEventDateEl.appendChild(getInputEl("event-date-input", "date"));
 
     tblRowEl.append(tblSchoolEl, tblEventNameEl, tblEventDateEl);
     tblRowEl.addEventListener('click', () => handleTblRowSelect(tblRowEl));
@@ -80,7 +80,7 @@ function handleEditEvent() {
     eventNameInput.value = eventName;
     tblRowData[1].appendChild(eventNameInput);
 
-    const eventDateInputEl = getInputEl("event-date-input", "text");
+    const eventDateInputEl = getInputEl("event-date-input", "date");
     eventDateInputEl.value = eventDate;
     tblRowData[2].appendChild(eventDateInputEl);
 
@@ -180,7 +180,13 @@ function init() {
     addSidebar(sidebarEl, "To Do");
 
     const schoolsJSON = localStorage.getItem('schools');
-    populateToDoList(tblBodyEl, JSON.parse(schoolsJSON));
+    let schools;
+    if (!schoolsJSON) {
+        schools = {};
+    } else {
+        schools = JSON.parse(schoolsJSON);
+    }
+    populateToDoList(tblBodyEl, schools);
 
     addFooter(footerEl);
     
@@ -189,28 +195,5 @@ function init() {
     editBtnEl.addEventListener('click', handleEditEvent);
     saveBtnEl.addEventListener('click', handleSave);
 }
-
-
-
-let schools = {
-    "BYU": { 
-        new: true,
-        imageURL: "https://picsum.photos/300/201",
-        events: [
-            { name: "Study for the GRE", date: "Feb 17, 2022" },
-            { name: "Write essays", date: "Mar 19, 2022" },
-        ]
-    },
-    "Harvard University": { 
-        new: false,
-        imageURL: "https://picsum.photos/300/201",
-        events: [
-            { name: "Take the MCAT", date: "Jan 7, 2022" },
-        ]
-    },
-}
-
-
-localStorage.setItem('schools', JSON.stringify(schools));
 
 init();
