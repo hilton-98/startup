@@ -41,3 +41,58 @@ My brother recently applied to medical school, and it was such a pain for him to
 - It's a total pain to get things to center vertically. Still haven't figured this out quite...
 - Position: absolute is NOT absolute on the entire page, just absolute relative to it's parent.
 - calc(100% - xpx) is useful for getting an element to fill up all avalable space. There is probably a better way to do this, but it works pretty well.
+
+## SIMON-JAVASCRIPT
+- Include scripts at the bottom of document if they use specific HTML elements.
+- User document.createElement() and myElement.appendChild() to add elements into the HTML.
+- Use localStorage to store things in the browser and have them persist between refreshes/reloading the website. Add things in key-value pairs.
+- JSON.parse() and JSON.stringify() are built into JavaScript and are extremely useful for working with JSON strings.
+
+
+## SIMON-SERVICE
+- LocalStorage is still nice, even with a back-end in node, because you can keep stuff for when you go offline.
+- Put fetches in try/catch.
+- Still need to figure out how to share code files between front-end and back-end.
+- next() function calls the function that's below in the file. The next one we told the app about, at least.
+- middleware functions are ones that you can tell your app to use always.
+- app.use(express.static("directory")) easily handles html requests for that directory.
+```
+  var apiRouter = express.Router();
+  app.use(`/api`, apiRouter); -> this gives a base url for our api.
+```
+## SIMON-DB
+- You can see environment variables with bash command printenv.
+- $VARIABLE_NAME lets you use them in a bash script or command.
+- Keep your password, username, etc. out of your code! You don't want these on github where the world can find them.
+- MongoDB stores stuff as JSON objects.
+- Because MongoDB doesn't use SQL, there are no joins. Also, duplicate rows are totally fine.
+
+## SIMON-LOGIN
+- You can install node packages all at once with command npm install express uuid etc.
+- AuthTokens are used instead of passing user information back and forth because it's more secure.
+- Cookies are used to pass authtoken info
+- Store passwords as hashes, not the actual password.
+- httpOnly tells the browser to not allow JavaScript running on the browser to read the cookie.
+- secure requires HTTPS to be used when sending the cookie back to the server.
+- sameSite will only return the cookie to the domain that generated it.
+- a GetMe endpoint is common, to create credentials and login using those credentials.
+
+## SIMON-WEB-SOCKET
+- NPM install ws
+- Web Sockets are secure two-way communication channels. This is a totally different architecture than the client-server interactions.
+- Web Sockets are always only between two computers. So, if you have an app with a server and multiple clients, client-client communication must pass through the server.
+- Use wss = new WebSocketServer({noServer: true});
+- User wss.on('connection' (ws) => {};
+- In the above function, you can add ws.on('someStringHere', () => {}) for other functions.
+- Using setInterval(() => {}, x); runs a function every x ms.
+- Checking all the connections to see if they are still active is a good idea.
+
+## SIMON-REACT
+- Run npm start to run React app.
+- I need to run both the back-end service (index.js) and the front-end react app (index.jsx) for the app to run correctly.
+- React allows for components to be reused (for example, we only have to define our header/footer once in react, where we had to define it for each page in straight html).
+- The service needs it's own node_modules, and react needs it's own node_modules.
+- Use [stateVariable, stateVariableSetterFunction] = useState(initalState) to hold state.
+- Return the HTML in react. Use {} to include variables.
+- Use className="" instead of class="" in react. This is because the jsx is a mix of XML and JavaScript, and class is a reserved keyword already.
+

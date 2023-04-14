@@ -1,0 +1,462 @@
+@import './constants.css';
+  
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+  
+header {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    text-align: center;
+  
+    flex: 0 50px;
+}
+  
+footer {
+    text-align: center;
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    
+    flex: 0 20px;
+}
+
+footer a {
+    float: right;
+}
+
+footer span {
+    float: left;
+}
+
+  
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+  
+@media (orientation: portrait) {
+    main {
+      flex-direction: column;
+    }
+}
+  
+@media (max-height: 600px) {
+  
+    header {
+      display: none;
+    }
+    
+    footer {
+      display: none;
+    }
+}
+  
+.about-text {
+    align-items: center;
+    justify-content: space-around;
+    width: calc(100% - 50px);
+    height: calc(100% - 57px);
+    text-indent: 40px;
+}
+
+.app-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.controls {
+    flex: 1;
+    min-width: 200px;
+    color: var(--primary-color);
+  
+    background-color: var(--secondary-color);
+}
+  
+.controls h2 {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 5px solid var(--primary-color);
+    height: 60px;
+}
+  
+.content {
+    flex: 5;
+    padding-top: 57px;    
+}
+  
+.content p {
+    padding-top: 10px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.current-page {
+    color: var(--secondary-color) !important;
+    background-color: var(--primary-color);
+}
+
+.current-page:hover {
+    text-decoration: none; 
+    border-left: none !important;
+}
+  
+.nav-links a {
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-left: 50px;
+}
+
+
+.nav-links a:link { 
+    text-decoration: none; 
+    color: var(--primary-color);
+}
+
+
+.nav-links a:visited { 
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+
+.nav-links a:hover {
+    text-decoration: none; 
+    border-left: solid 5px var(--primary-color);
+}
+  
+.nav-links br {
+    content: "";
+    margin: 0px;
+    padding: 2px;
+    display: block;
+    font-size: 24%;
+}
+
+
+
+.wrapper{
+    width: calc(100% - 100px);
+    height: calc(100% - 57px);
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    border-radius: 120px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    text-indent: none !important;
+    padding-right: 10px;
+}
+
+
+.calendar-header .icons{
+    display: flex;
+}
+
+.calendar-header .icons span{
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.icons span:last-child{
+    margin-right: -10px;
+}
+
+.calendar-header .icons span:hover{
+    background: #f2f2f2;
+}
+
+.calendar-header .current-date {
+    text-transform: uppercase;
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.calendar {
+    padding: 20px;
+}
+
+.calendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+}
+
+.calendar .days {
+    margin-bottom: 20px;
+    padding: 0px;
+    border: solid 1px var(--primary-color);
+
+}
+
+.calendar li {
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+}
+
+.calendar .weeks li {
+    font-weight: 500;
+    cursor: default;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+
+.weeks {
+    border-bottom: solid 1px var(--secondary-color);
+    padding-left: 0px;
+}
+
+.calendar .days li{
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border: solid 1px var(--primary-color);
+}
+
+.days li.inactive {
+    color: #aaa;
+}
+
+.days li.active {
+    color: #fff;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+    background: #9B59B6;
+}
+
+.days li:not(.active):hover::before {
+    background: #f2f2f2;
+}
+
+.homepage-btn {
+    background-color: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
+    border-color: var(--primary-color) !important;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.homepage-controls {
+    text-align: right;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    width: calc(100% - 100px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 50px;
+    margin-top: 0px;
+    padding-right: 10px;
+}
+
+.details-btn {
+    position: absolute;
+    bottom: 10px;
+
+}
+
+.remove-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 110px;
+}
+
+.new-tag {
+    background-color: var(--primary-color);
+    color: var(--secondary-color) !important;
+    margin-left: 10px;
+}
+
+.school-card {
+    width: calc(100%);
+    background-color: var(--secondary-color) !important;
+    color: var(--primary-color);
+    height: 100% !important;
+    margin-bottom: 50px;
+
+}
+
+.school-name {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.col {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.row {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+/* Include the padding and border in an element's total width and height */
+.to-do-list {
+    box-sizing: border-box;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.to-do-list h2 {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+  
+  /* Remove margins and padding from the list */
+.to-do-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+  /* Style the list items */
+.to-do-list ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: var(--secondary-color);
+    font-size: 18px;
+    transition: 0.2s;
+  
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+  /* Set all odd list items to a different color (zebra-stripes) */
+.to-do-list ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+  
+  /* Darker background-color on hover */
+.to-do-list ul li:hover {
+    background: #ddd;
+}
+  
+  /* When clicked on, add a background color and strike out text */
+.to-do-list ul li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+}
+  
+/* Add a "checked" mark when clicked on */
+.to-do-list ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+  
+/* Style the close button */
+.to-do-list .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+}
+  
+.to-do-list .close:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+  
+/* Style the header */
+.to-do-list .header {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    padding: 30px 40px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+  
+/* Clear floats after the header */
+.to-do-list .header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+  
+/* Style the input */
+.to-do-list input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+  
+/* Style the "Add" button */
+.to-do-list .addBtn {
+    padding: 10px;
+    width: 25%;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+    text-transform: uppercase;
+}
+  
+.to-do-list .addBtn:hover {
+    background-color: #bbb;
+}

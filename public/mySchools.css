@@ -1,0 +1,7 @@
+@import './constants.css';
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+

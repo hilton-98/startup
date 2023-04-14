@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- Tell browsers not to scale the viewport automatically -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RUNWAY</title>
+
+        <link rel="stylesheet" href="main.css" />
+        <!-- Include bootstrap CSS framework -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
+        />
+    </head>
+
+    <body>
+        <header class="container-fluid">
+            <h1 class="text-uppercase">Runway</h1>
+        </header>
+
+        <main class="bg-secondary">
+            <section class="controls">
+                <h2 class="text-uppercase">Menu</h2>
+                <div class="nav-links">
+                    <a href="index.html">Home</a></br>
+                    <a class="current-page" href="toDo.html">To do</a></br>
+                    <a href="calendar.html">Calendar</a></br>
+                    <a href="about.html">About</a></br>
+                </div>
+          </section>
+
+          <section class="content">
+
+            <div class="to-do-list">
+                <div id="myDIV" class="header">
+                    <h2>TO DO LIST</h2>
+                    <input type="text" id="myInput" placeholder="Title...">
+                    <span onclick="newElement()" class="addBtn">Add</span>
+                </div>
+                
+                <ul id="myUL">
+                    <li>Hit the gym</li>
+                    <li class="checked">Pay bills</li>
+                    <li>Meet George</li>
+                    <li>Buy eggs</li>
+                    <li>Read a book</li>
+                    <li>Organize office</li>
+                </ul>
+            </div>
+          </section>
+        </main>
+
+        <footer>
+            <div class="container-fluid">
+                <span class="text-reset">By Kevin Hilton</span>
+                <a class="text-reset" href="https://github.com/hilton-98/startup">GitHub</a>
+            </div>
+        </footer>
+    </body>
+</html>
