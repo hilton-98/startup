@@ -1,4 +1,5 @@
-import { addFooter } from "./footer.js";
+import { addHeader } from "./components/header.js";
+import { addFooter } from "./components/footer.js";
 
 const COLS_PER_ROW = 3;
 
@@ -66,5 +67,8 @@ function populateMySchools(schools) {
     mySchoolsEl.innerHTML = mySchoolsHTML;
 }
 
+const bodyEl = document.querySelector('body');
+
+addHeader(bodyEl.querySelector('header'));
 populateMySchools(schools);
-addFooter(document.querySelector('body'));
+addFooter(bodyEl.querySelector('footer'));
