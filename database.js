@@ -78,6 +78,7 @@ async function updateSchools(schoolsList, username) {
 
         if (!isDefined(dbSchool)) {
             schoolCollection.insertOne(school);
+            continue;
         }
 
         const numEvents = school.events.length;
@@ -102,9 +103,17 @@ async function updateSchools(schoolsList, username) {
 }
 
 async function deleteSchool(school, username) {
-    console.log("deleting school");
-
     schoolCollection.deleteOne({ schoolName: school.schoolName, username: username });
+}
+
+function arrayToMap(schoolsArray) {
+
+    let schools = {};
+    for (const school of schoolsArray) {
+        schools[school.schoolName] = school;
+    }
+
+    return schools;
 }
 
 async function getSchools(username) {
@@ -113,12 +122,8 @@ async function getSchools(username) {
     const options = {};
     const cursor = schoolCollection.find(query, options);
     const schoolsArray = await cursor.toArray();
-    let schools = {};
 
-    for (const school of schoolsArray) {
-        schools[school.schoolName] = school;
-    }
-    return schools;
+    return arrayToMap(schoolsArray);
 }
 
 

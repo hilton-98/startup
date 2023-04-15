@@ -104,3 +104,9 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Think of flexbox as the linear layouts for XML files in Android Studio.
 - Using addEventListener('click', someFunction) can be stacked to add multipled handler functions for a click. Pretty useful.
 
+## STARTUP-SERVICE
+- MongoDB - use InsertOne(obj), FindAndReplace(filter, obj), DeleteOne(filter), or find(filter) where filter is an object holding keys.
+- Pull up MongoDB when you are inserting/replacing to double-check in browser.
+- Use async-await to control program flow.
+- Isolate database code if possible.
+- Just a guess-- does npm install look at what's currently in package-lock.json to see required dependencies? How else would it know what to install?
