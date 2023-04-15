@@ -96,3 +96,11 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Return the HTML in react. Use {} to include variables.
 - Use className="" instead of class="" in react. This is because the jsx is a mix of XML and JavaScript, and class is a reserved keyword already.
 
+## STARTUP-JAVASCRIPT
+- Use JSON.stringify() to go to JSON, JSON.parse to get back to JavaScript objects.
+- Use append() or appendChild() to add elements to their parents in the DOM model.
+- Use for ([key, value] of Object.entries(obj)) to get an array of keys and values.
+- Use arrow functions () => {} when you need to pass a callback function with a parameter.
+- Think of flexbox as the linear layouts for XML files in Android Studio.
+- Using addEventListener('click', someFunction) can be stacked to add multipled handler functions for a click. Pretty useful.
+
