@@ -13,9 +13,6 @@ const url = `mongodb+srv://${userName}:${password}@${hostname}`;
 const client = new MongoClient(url);
 const schoolCollection = client.db('runway').collection('schools');
 
-let schools = {};
-
-
 // function addScore(score) {
 //   scoreCollection.insertOne(score);
 // }
@@ -31,10 +28,14 @@ let schools = {};
 // }
 
 
-function getEvents() {
+async function getEvents(username) {
 
+
+    const schools = await getSchools(username);
     let eventsList = {};
+
     for (const [schoolName, school] of Object.entries(schools)) {
+
         for (const event of school.events) {
 
             if (eventsList[event.date]) {
@@ -48,27 +49,77 @@ function getEvents() {
     return eventsList;
 }
 
-
-function updateSchools(reqBody) {
-    schools = reqBody;
+function isDefined(obj) {
+    return (obj && (obj !== "undefined"));
 }
 
-function deleteSchool(school) {
+function areEventsDifferent(e1, e2) {
+
+    if (e1.schoolName !== e2.schoolName) {
+        return true;
+    } else if (e1.username !== e2.username) {
+        return true;
+    } else if (e1.name !== e2.name) {
+        return true;
+    } else if (e1.date !== e2.date) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+async function updateSchools(schoolsList, username) {
+
+    const dbSchools = await getSchools(username);
+
+    for (const [schoolName, school] of Object.entries(schoolsList)) {
+
+        const dbSchool = dbSchools[schoolName];
+
+        if (!isDefined(dbSchool)) {
+            schoolCollection.insertOne(school);
+        }
+
+        const numEvents = school.events.length;
+        const numDbEvents = dbSchool.events.length;
+
+        if (numEvents !== numDbEvents) {
+            schoolCollection.findOneAndReplace({ schoolName: schoolName, username: username }, school);
+            continue;
+        }
+
+        for (let i = 0; i < numEvents; i++) {
+
+            const schoolEvent = school.events[i];
+            const dbSchoolEvent = dbSchool.events[i];
+
+            if (areEventsDifferent(schoolEvent, dbSchoolEvent)) {
+                schoolCollection.findOneAndReplace({ schoolName: schoolName, username: username }, school);
+                continue;
+            }            
+        }
+    }
+}
+
+async function deleteSchool(school, username) {
     console.log("deleting school");
 
-    // schoolCollection.deleteOne(school);
-    delete schools[school.schoolName];
+    schoolCollection.deleteOne({ schoolName: school.schoolName, username: username });
 }
 
-function getSchools(username) {
+async function getSchools(username) {
 
-    // console.log("Get Schools");
-    // const query = {};
-    // const options = {};
-    // const cursor = schoolCollection.find(query, options);
-    // return cursor.toArray();
+    const query = {username: username};
+    const options = {};
+    const cursor = schoolCollection.find(query, options);
+    const schoolsArray = await cursor.toArray();
+    let schools = {};
+
+    for (const school of schoolsArray) {
+        schools[school.schoolName] = school;
+    }
     return schools;
 }
 
 
-module.exports = { getSchools, getEvents, deleteSchool, updateSchools};
+module.exports = { getSchools, getEvents, updateSchools, deleteSchool};

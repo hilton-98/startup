@@ -23,7 +23,6 @@ let userInfoEl = null;
 let usernameDisplayEl = null;
 let logoutBtnEl = null;
 
-
 function removeSchoolLocal(schoolName) {
 
     const schoolsJSON = localStorage.getItem('schools');
@@ -134,33 +133,25 @@ function isValidUsernameAndPassword() {
 
 }
 
-function handleLogin() {
-    console.log("handle login");
-
-    console.log('username: ' + usernameEl.value);
-    console.log('password: ' + passwordEl.value);
-
+async function handleLogin() {
 
     if (!isValidUsernameAndPassword()) {
-        console.log("invalid");
         return;
     }
 
-    login(usernameEl.value);
+    await login(usernameEl.value);
 }
 
-function handleCreateAccount() {
-    console.log("handle create account");
+async function handleCreateAccount() {
+
     if (!isValidUsernameAndPassword()) {
-        console.log("invalid");
         return;
     }
 
-    login(usernameEl.value);
+    await login(usernameEl.value);
 }
 
 function handleLogout() {
-    console.log('handle logout');
     logout();
 }
 
@@ -205,7 +196,8 @@ function initLoggedOut() {
     logoutBtnEl.addEventListener('click', handleLogout);
 }
 
-function login(username) {
+async function login(username) {
+
     loginEl.hidden = true;
     contentEl.hidden = false;
     sidebarEl.hidden = false;
@@ -213,6 +205,20 @@ function login(username) {
 
     localStorage.setItem('username', username);
     usernameDisplayEl.textContent = username;
+
+    try {
+
+        const response = await fetch('/api/username', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ username: username }),
+        });
+
+        const res = await response.json();
+
+    } catch(e) {
+        console.log(e.message);
+    }
 }
 
 function logout() {

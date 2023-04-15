@@ -26,7 +26,6 @@ function getInputEl(className, type) {
 }
 
 function handleAddEvent() {
-    console.log("Add event");
 
     const tblRowEl = document.createElement('tr');
 
@@ -45,10 +44,11 @@ function handleAddEvent() {
     tblBodyEl.appendChild(tblRowEl);
 }
 
-function handleRemoveEvent() {
+async function handleRemoveEvent() {
     if (!currSelectedRow || currSelectedRow === "undefined") {
         return;
     }
+
     tblBodyEl.removeChild(currSelectedRow);
 }
 
@@ -106,9 +106,9 @@ async function saveSchools(schools) {
 
 
 
-function getSchoolsFromTable() {
+async function getSchoolsFromTable() {
 
-    let schools = {};
+    let tblSchools = {};
 
     const username = localStorage.getItem('username');
 
@@ -134,26 +134,28 @@ function getSchoolsFromTable() {
             continue;
         }
 
-        if (schools[schoolName]) {
-            schools[schoolName].events.push({ name: eventName, date: eventDate });
+        if (tblSchools[schoolName]) {
+            tblSchools[schoolName].events.push({ name: eventName, date: eventDate });
         } else {
 
-            schools[schoolName] = {
+            const newSchool = {
                 schoolName: schoolName,
                 username: username,
                 events: [
                     { name: eventName, date: eventDate },
                 ]
-            }
+            };
+
+            tblSchools[schoolName] = newSchool;
         }
     }
 
-    return schools;
+    return tblSchools;
 }
 
 async function handleSave() {
 
-    const schools = getSchoolsFromTable();
+    const schools = await getSchoolsFromTable();
 
     await saveSchools(schools);
 
