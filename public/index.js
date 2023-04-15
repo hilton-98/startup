@@ -104,7 +104,7 @@ function handleLogin() {
         return;
     }
 
-    login();
+    login(usernameEl.value);
 }
 
 function handleCreateAccount() {
@@ -114,7 +114,7 @@ function handleCreateAccount() {
         return;
     }
 
-    login();
+    login(usernameEl.value);
 }
 
 function handleLogout() {
@@ -122,12 +122,7 @@ function handleLogout() {
     logout();
 }
 
-
-function initLoggedIn(username) {
-
-    console.log("initting logged in");
-    console.log('username: ' + username);
-
+function init(username) {
     addHeader(headerEl, username);
     addSidebar(sidebarEl, "Home");
     addFooter(footerEl);
@@ -135,6 +130,20 @@ function initLoggedIn(username) {
     usernameDisplayEl = document.getElementById('username-display');
     logoutBtnEl = document.getElementById('logout-btn');
     userInfoEl = document.getElementById('user-info');
+}
+
+function initLoggedIn() {
+
+    const username = localStorage.getItem('username');
+
+    init(username);
+    // addHeader(headerEl, username);
+    // addSidebar(sidebarEl, "Home");
+    // addFooter(footerEl);
+
+    // usernameDisplayEl = document.getElementById('username-display');
+    // logoutBtnEl = document.getElementById('logout-btn');
+    // userInfoEl = document.getElementById('user-info');
 
     loginEl.hidden = true;
     contentEl.hidden = false;
@@ -148,17 +157,17 @@ function initLoggedIn(username) {
 
 function initLoggedOut() {
 
-    addHeader(headerEl, '');
-    addSidebar(sidebarEl, "Home");
-    addFooter(footerEl);
+    init('');
+    // addHeader(headerEl, '');
+    // addSidebar(sidebarEl, "Home");
+    // addFooter(footerEl);
+
+    // usernameDisplayEl = document.getElementById('username-display');
+    // logoutBtnEl = document.getElementById('logout-btn');
+    // userInfoEl = document.getElementById('user-info');
 
     contentEl.hidden = true;
     sidebarEl.hidden = true;
-
-    usernameDisplayEl = document.getElementById('username-display');
-    logoutBtnEl = document.getElementById('logout-btn');
-    userInfoEl = document.getElementById('user-info');
-
     userInfoEl.hidden = true;
 
     loginBtnEl.addEventListener('click', handleLogin);
@@ -166,16 +175,14 @@ function initLoggedOut() {
     logoutBtnEl.addEventListener('click', handleLogout);
 }
 
-function login() {
+function login(username) {
     loginEl.hidden = true;
     contentEl.hidden = false;
     sidebarEl.hidden = false;
     userInfoEl.hidden = false;
 
 
-    const username = "Logged In: " + usernameEl.value;
     localStorage.setItem('username', username);
-
     usernameDisplayEl.textContent = username;
 }
 
@@ -187,8 +194,9 @@ function logout() {
 }
 
 const username = localStorage.getItem('username');
+
 if (username && username !== '') {
-    initLoggedIn(username);
+    initLoggedIn();
 } else {
     initLoggedOut();
 }

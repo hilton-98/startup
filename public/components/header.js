@@ -5,8 +5,7 @@ function handleLogout(usernameDisplayEl) {
     console.log("Logging out?");
 
     usernameDisplayEl.textContent = '';
-    localStorage.setItem('username', '');
-    localStorage.setItem('schools', '');
+    localStorage.clear();
     window.location.replace("./index.html");
 }
 
