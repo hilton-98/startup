@@ -110,6 +110,8 @@ function getSchoolsFromTable() {
 
     let schools = {};
 
+    const username = localStorage.getItem('username');
+
     for (const tblRowEl of tblBodyEl.querySelectorAll('tr')) {
 
         const tblRowData = tblRowEl.querySelectorAll(".to-do-list-table-element");
@@ -137,8 +139,8 @@ function getSchoolsFromTable() {
         } else {
 
             schools[schoolName] = {
-                new: true,
-                imageURL: "",
+                schoolName: schoolName,
+                username: username,
                 events: [
                     { name: eventName, date: eventDate },
                 ]

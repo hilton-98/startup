@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-
-
-let schools = {};
+const DB = require('./database.js');
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
@@ -15,25 +13,25 @@ var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // GetSchools
-apiRouter.get('/schools', (_req, res) => {
-    res.send(schools);
+apiRouter.get('/schools', async (_req, res) => {
+    res.send(await DB.getSchools());
   });
   
 // GetEvents
-apiRouter.get('/events', (_req, res) => {
-    res.send(getEvents());
+apiRouter.get('/events', async (_req, res) => {
+    res.send(await DB.getEvents());
 });
 
 // Delete school
-apiRouter.post('/schools/delete', (req, res) => {
-    deleteSchool(req.body.schoolName);
-    res.send(schools);
+apiRouter.post('/schools/delete', async (req, res) => {
+    await DB.deleteSchool(req.body);
+    res.send(await DB.getSchools());
 });
 
 // Update schools
-apiRouter.post('/schools/update', (req, res) => {
-    updateSchools(req.body);
-    res.send(schools);
+apiRouter.post('/schools/update', async (req, res) => {
+    await DB.updateSchools(req.body);
+    res.send(await DB.getSchools());
 });
 
 
@@ -45,32 +43,3 @@ app.use((_req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
-
-
-function getEvents() {
-
-    let eventsList = {};
-    for (const [schoolName, school] of Object.entries(schools)) {
-        for (const event of school.events) {
-
-            if (eventsList[event.date]) {
-                eventsList[event.date].push({ schoolName: schoolName, name: event.name })
-            } else {
-                eventsList[event.date] = [{ schoolName: schoolName, name: event.name }];
-            }
-        }
-    }
-
-    return eventsList;
-}
-
-
-function updateSchools(reqBody) {
-    schools = reqBody;
-}
-
-function deleteSchool(schoolName) {
-    console.log("deleting school");
-    console.log("schoolName: " + schoolName);
-    delete schools[schoolName];
-}

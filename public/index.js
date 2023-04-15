@@ -38,26 +38,26 @@ function removeSchoolLocal(schoolName) {
     localStorage.setItem('schools', JSON.stringify(schools));
 }
 
-async function removeSchool(schoolName) {
+async function removeSchool(school) {
 
     try {
 
         const response = await fetch('/api/schools/delete', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify( { schoolName: schoolName } ),
+            body: JSON.stringify(school),
         });
         const schools = await response.json();
 
         localStorage.setItem('schools', schools);
     } catch {
-        removeSchoolLocal(schoolName);
+        removeSchoolLocal(school.schoolName);
     }
 }
 
-async function handleRemoveSchool(schoolName) {
+async function handleRemoveSchool(school) {
 
-    removeSchool(schoolName);
+    removeSchool(school);
     renderSchools();
 }
 
@@ -107,7 +107,7 @@ async function renderSchools() {
         const removeBtnEl = document.createElement('span');
         removeBtnEl.className = "homepage-btn";
         removeBtnEl.textContent = "Remove";
-        removeBtnEl.addEventListener('click', () => handleRemoveSchool(schoolName));
+        removeBtnEl.addEventListener('click', () => handleRemoveSchool(school));
 
         schoolTextContainerEl.innerHTML += 
             "<p class=\"school-text\">Next Up: " + school.events[0].name + "</p>" +
