@@ -27,7 +27,7 @@ apiRouter.get('/events', async (_req, res) => {
 
 apiRouter.post('/schools/update', async (req, res) => {
     await DB.updateSchools(req.body, username);
-    res.send();
+    res.send(await DB.getSchools(username));
 });
 
 // Delete school

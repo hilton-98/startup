@@ -21,7 +21,7 @@ function displayQuote(data) {
         const authorEl = document.createElement('p');
         authorEl.classList.add('author');
   
-      quoteEl.textContent = `"${data.content}"`;
+        quoteEl.textContent = `"${data.content}"`;
         authorEl.textContent = `--${data.author}`;
   
         containerEl.appendChild(quoteEl);
@@ -31,7 +31,7 @@ function displayQuote(data) {
 
 
 function init() {
-    addHeader(headerEl, localStorage.getItem('username'));
+    addHeader(headerEl);
     addSidebar(sidebarEl, "About");
     addFooter(footerEl);
     displayQuote();

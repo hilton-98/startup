@@ -1,3 +1,4 @@
+import ClientStorage from "../clientStorage.js";
 const APP_TITLE = "Runway";
 
 
@@ -5,11 +6,13 @@ function handleLogout(usernameDisplayEl) {
     console.log("Logging out?");
 
     usernameDisplayEl.textContent = '';
-    localStorage.clear();
+    ClientStorage.clear();
     window.location.replace("./index.html");
 }
 
-export function addHeader(headerEl, username) {
+export function addHeader(headerEl) {
+
+    const username = ClientStorage.getUsername();
 
     headerEl.className = "container-fluid";
 

@@ -1,6 +1,7 @@
 import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
+import ClientStorage from "./clientStorage.js";
 
 
 const bodyEl = document.querySelector('body');
@@ -51,11 +52,8 @@ function getCurrStr(dayOrMonth) {
 }
 
 function getLocalEventsList() {
-    const schoolsJSON = localStorage.getItem('schools');
-    if (!schoolsJSON) {
-        return {};
-    }
-    const schools = JSON.parse(schoolsJSON);
+
+    const schools = ClientStorage.getSchools();
 
     let eventsList = {};
     for (const [schoolName, school] of Object.entries(schools)) {
@@ -75,29 +73,17 @@ function getLocalEventsList() {
 
 async function getEventsList() {
 
-    console.log("Gete events list");
-
     try {
         const response = await fetch('/api/events', {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
         });
   
-        // Store what the service gave us as the events
-        const eventsList = await response.json();
-        localStorage.setItem('events', JSON.stringify(eventsList));
-        return eventsList;
+        return await response.json();
 
-      } catch {
-        console.log("ERROR");
-        // If there was an error then just get events locally
-        const eventsListJSON = localStorage.getItem('events');
-        if (eventsListJSON) {
-            return JSON.parse(eventsListJSON);
-        } else {
-            return getLocalEventsList();
-        }
-      }
+    } catch {
+        return getLocalEventsList();
+    }
 }
 
 function getTableElement() {
@@ -201,7 +187,7 @@ function renderCalendar(currMonth, currYear) {
 
 function init() {
 
-    addHeader(headerEl, localStorage.getItem('username'));
+    addHeader(headerEl);
     addSidebar(sidebarEl, "Calendar");
 
     // getting new date, current year and month

@@ -1,6 +1,7 @@
 import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
+import ClientStorage from "./clientStorage.js";
 
 
 const bodyEl = document.querySelector('body');
@@ -53,7 +54,7 @@ async function handleRemoveEvent() {
 }
 
 function handleEditEvent() {
-    console.log("Edit event");
+
     if (!currSelectedRow) {
         return;
     }
@@ -94,13 +95,13 @@ async function saveSchools(schools) {
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify(schools),
         });
-  
-        // Store what the service gave us as the schools
-        schools = await response.json();
-        localStorage.setItem('schools', JSON.stringify(schools));
-    } catch {
-        // If there was an error then just track schools locally
-        localStorage.setItem('schools', JSON.stringify(schools));
+
+        ClientStorage.setSchools(await response.json());
+
+    } catch(e) {
+
+        console.log(e.message);
+        ClientStorage.setSchools(schools);
     }
 }
 
@@ -110,7 +111,7 @@ async function getSchoolsFromTable() {
 
     let tblSchools = {};
 
-    const username = localStorage.getItem('username');
+    const username = ClientStorage.getUsername();
 
     for (const tblRowEl of tblBodyEl.querySelectorAll('tr')) {
 
@@ -204,25 +205,21 @@ function renderToDoList(tblBodyEl, schools) {
 
 async function loadSchools() {
 
-    let schools = {};
-
     try {
         const response = await fetch('/api/schools');
-        schools = await response.json();
+        const schools = await response.json();
 
-        localStorage.setItem('schools', JSON.stringify(schools));
-    } catch {
-        const schoolsJSON = localStorage.getItem('schools');
-        if (schoolsJSON) {
-            schools = JSON.parse(schoolsJSON);
-        }
+        ClientStorage.setSchools(schools);
+        return schools;
+    } catch(e) {
+        
+        console.log(e.message);
+        return ClientStorage.getSchools();
     }
-
-    return schools;
 }
 
 async function init() {
-    addHeader(headerEl, localStorage.getItem('username'));
+    addHeader(headerEl);
     addSidebar(sidebarEl, "To Do");
 
     renderToDoList(tblBodyEl, await loadSchools());

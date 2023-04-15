@@ -1,6 +1,7 @@
 import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
+import ClientStorage from "./clientStorage.js";
 
 const COLS_PER_ROW = 3;
 
@@ -25,16 +26,9 @@ let logoutBtnEl = null;
 
 function removeSchoolLocal(schoolName) {
 
-    const schoolsJSON = localStorage.getItem('schools');
-    let schools;
-    if (!schoolsJSON) {
-        return;
-    } else {
-        schools = JSON.parse(schoolsJSON);
-    }
-
+    const schools = ClientStorage.getSchools();
     delete schools[schoolName];
-    localStorage.setItem('schools', JSON.stringify(schools));
+    ClientStorage.setSchools(schools);
 }
 
 async function removeSchool(school) {
@@ -47,8 +41,7 @@ async function removeSchool(school) {
             body: JSON.stringify(school),
         });
         const schools = await response.json();
-
-        localStorage.setItem('schools', schools);
+        ClientStorage.setSchools(schools);
     } catch {
         removeSchoolLocal(school.schoolName);
     }
@@ -68,12 +61,9 @@ async function loadSchools() {
         const response = await fetch('/api/schools');
         schools = await response.json();
 
-        localStorage.setItem('schools', JSON.stringify(schools));
+        ClientStorage.setSchools(schools);
     } catch {
-        const schoolsJSON = localStorage.getItem('schools');
-        if (schoolsJSON) {
-            schools = JSON.parse(schoolsJSON);
-        }
+        schools = ClientStorage.getSchools();
     }
 
     return schools;
@@ -155,8 +145,8 @@ function handleLogout() {
     logout();
 }
 
-function init(username) {
-    addHeader(headerEl, username);
+function init() {
+    addHeader(headerEl);
     addSidebar(sidebarEl, "Home");
     addFooter(footerEl);
     renderSchools();
@@ -169,9 +159,7 @@ function init(username) {
 
 function initLoggedIn() {
 
-    const username = localStorage.getItem('username');
-
-    init(username);
+    init();
 
     loginEl.hidden = true;
     contentEl.hidden = false;
@@ -185,7 +173,7 @@ function initLoggedIn() {
 
 function initLoggedOut() {
 
-    init('', {});
+    init();
 
     contentEl.hidden = true;
     sidebarEl.hidden = true;
@@ -203,7 +191,7 @@ async function login(username) {
     sidebarEl.hidden = false;
     userInfoEl.hidden = false;
 
-    localStorage.setItem('username', username);
+    ClientStorage.setUsername(username);
     usernameDisplayEl.textContent = username;
 
     try {
@@ -228,9 +216,7 @@ function logout() {
     userInfoEl.hidden = true;
 }
 
-const username = localStorage.getItem('username');
-
-if (username && username !== '') {
+if (ClientStorage.getUsername() !== '') {
     initLoggedIn();
 } else {
     initLoggedOut();
