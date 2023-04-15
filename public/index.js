@@ -4,70 +4,6 @@ import { addFooter } from "./components/footer.js";
 
 const COLS_PER_ROW = 3;
 
-const mySchoolsEl = document.getElementById('my-schools');
-
-const schools = [ 
-    { 
-        name: "Brigham Young University",
-        nextAction: "Take the GRE",
-        new: true,
-        imageURL: "https://picsum.photos/300/201",
-    },
-    { 
-        name: "Harvard University",
-        nextAction: "Study for the MCAT",
-        new: false,
-        imageURL: "https://picsum.photos/300/201",
-    },
-];
-
-function addMySchools(schools) {
-    
-    mySchoolsEl.innerHTML = "";
-
-    let rowCounter = 0;
-    let firstPass = true;
-    let mySchoolsHTML = '';
-
-    for (const school of schools) {
-
-        if (rowCounter === 0) {
-            if (!firstPass) {
-                mySchoolsHTML += "</div>";
-            } else {
-                firstPass = false;
-            }
-            mySchoolsHTML += "<div class=\"row\">";
-        }
-        
-        mySchoolsHTML += 
-        "<div class=\"col\">" +
-            "<div class=\"card school-card\">" +
-                "<img class=\"card-img-top\" src=" + school.imageURL +  "/>" +
-                "<div class=\"card-body\">" +
-                    "<h5 class=\"card-title school-name\">" + school.name;
-                    if (school.new) {
-                        mySchoolsHTML += "<span class=\"badge new-tag\">New</span>";
-                    }
-                    mySchoolsHTML += "</h5>" +
-                    "<p class=\"card-text\">" + school.nextAction + "</p>" +
-                    "<a class=\"btn btn-primary details-btn homepage-btn\">Details</a>" +
-                    "<a class=\"btn btn-primary remove-btn homepage-btn\" onClick=\"\">Remove</a>" +
-                "</div>" +
-            "</div>" +
-        "</div>";
-
-        rowCounter++;
-
-        if (rowCounter >= COLS_PER_ROW) {
-            rowCounter = 0;
-        }
-    }
-
-    console.log(JSON.stringify(mySchoolsHTML));
-    mySchoolsEl.innerHTML = mySchoolsHTML;
-}
-
 const bodyEl = document.querySelector('body');
 const headerEl = bodyEl.querySelector('header');
 const mainEl = bodyEl.querySelector('main');
@@ -75,6 +11,7 @@ const contentEl = mainEl.querySelector('.content');
 const loginEl = mainEl.querySelector('.login');
 const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
+const mySchoolsTblBodyEl = document.getElementById('my-schools-table-body');
 
 
 const loginBtnEl = document.getElementById('login-btn');
@@ -86,6 +23,77 @@ let userInfoEl = null;
 let usernameDisplayEl = null;
 let logoutBtnEl = null;
 
+
+function handleRemoveSchool(schoolName) {
+
+    const schoolsJSON = localStorage.getItem('schools');
+    let schools;
+    if (!schoolsJSON) {
+        return;
+    } else {
+        schools = JSON.parse(schoolsJSON);
+    }
+
+    delete schools[schoolName];
+    localStorage.setItem('schools', JSON.stringify(schools));
+
+    
+    renderSchools();
+}
+
+function renderSchools() {
+    
+    const schoolsJSON = localStorage.getItem('schools');
+    let schools;
+    if (!schoolsJSON) {
+        return;
+    } else {
+        schools = JSON.parse(schoolsJSON);
+    }
+
+    mySchoolsTblBodyEl.innerHTML = "";
+
+    let rowCounter = 0;
+
+    let tblRowEl = document.createElement('tr');
+
+    for (const [schoolName, school] of Object.entries(schools)) {
+
+        const tblDataEl = document.createElement('td');
+        const schoolBodyEl = document.createElement('div');
+        schoolBodyEl.className = "school-body";
+        
+        const schoolNameHeaderEl = document.createElement('h5');
+        schoolNameHeaderEl.className = "school-name";
+        schoolNameHeaderEl.textContent = schoolName;
+
+        const schoolTextContainerEl = document.createElement('div');
+        schoolTextContainerEl.className = "school-text-container";
+
+        const removeBtnEl = document.createElement('span');
+        removeBtnEl.className = "homepage-btn";
+        removeBtnEl.textContent = "Remove";
+        removeBtnEl.addEventListener('click', () => handleRemoveSchool(schoolName));
+
+        schoolTextContainerEl.innerHTML += 
+            "<p class=\"school-text\">Next Up: " + school.events[0].name + "</p>" +
+            "<p class=\"school-text\">On: " + school.events[0].date + "</p>";
+
+        schoolBodyEl.append(schoolNameHeaderEl, schoolTextContainerEl, removeBtnEl);
+        tblDataEl.appendChild(schoolBodyEl);
+        tblRowEl.appendChild(tblDataEl);
+
+        rowCounter++;
+
+        if (rowCounter >= COLS_PER_ROW) {
+            rowCounter = 0;
+            mySchoolsTblBodyEl.append(tblRowEl);
+            tblRowEl = document.createElement('tr');
+        }
+    }
+
+    mySchoolsTblBodyEl.append(tblRowEl);
+}
 
 function isValidUsernameAndPassword() {
     return (usernameEl.value !== '' && passwordEl.value !== '');
@@ -126,6 +134,8 @@ function init(username) {
     addHeader(headerEl, username);
     addSidebar(sidebarEl, "Home");
     addFooter(footerEl);
+    renderSchools();
+
 
     usernameDisplayEl = document.getElementById('username-display');
     logoutBtnEl = document.getElementById('logout-btn');
@@ -137,13 +147,6 @@ function initLoggedIn() {
     const username = localStorage.getItem('username');
 
     init(username);
-    // addHeader(headerEl, username);
-    // addSidebar(sidebarEl, "Home");
-    // addFooter(footerEl);
-
-    // usernameDisplayEl = document.getElementById('username-display');
-    // logoutBtnEl = document.getElementById('logout-btn');
-    // userInfoEl = document.getElementById('user-info');
 
     loginEl.hidden = true;
     contentEl.hidden = false;
@@ -157,14 +160,7 @@ function initLoggedIn() {
 
 function initLoggedOut() {
 
-    init('');
-    // addHeader(headerEl, '');
-    // addSidebar(sidebarEl, "Home");
-    // addFooter(footerEl);
-
-    // usernameDisplayEl = document.getElementById('username-display');
-    // logoutBtnEl = document.getElementById('logout-btn');
-    // userInfoEl = document.getElementById('user-info');
+    init('', {});
 
     contentEl.hidden = true;
     sidebarEl.hidden = true;
@@ -180,7 +176,6 @@ function login(username) {
     contentEl.hidden = false;
     sidebarEl.hidden = false;
     userInfoEl.hidden = false;
-
 
     localStorage.setItem('username', username);
     usernameDisplayEl.textContent = username;
