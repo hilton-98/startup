@@ -68,11 +68,20 @@ function areEventsDifferent(e1, e2) {
     }
 }
 
-async function updateSchools(schoolsList, username) {
+async function updateSchools(schools, username) {
 
     const dbSchools = await getSchools(username);
 
-    for (const [schoolName, school] of Object.entries(schoolsList)) {
+    const schoolsArray = Object.entries(schools);
+    const dbSchoolsArray = Object.entries(dbSchools);
+
+    for (const [dbSchoolName, dbSchool] of dbSchoolsArray) {
+        if (!isDefined(schools[dbSchoolName])) {
+            deleteSchool(dbSchool, username);
+        }
+    }
+
+    for (const [schoolName, school] of schoolsArray) {
 
         const dbSchool = dbSchools[schoolName];
 
@@ -100,6 +109,9 @@ async function updateSchools(schoolsList, username) {
             }            
         }
     }
+
+
+
 }
 
 async function deleteSchool(school, username) {
