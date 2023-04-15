@@ -50,8 +50,7 @@ function getCurrStr(dayOrMonth) {
     }
 }
 
-function getEventsList() {
-
+function getLocalEventsList() {
     const schoolsJSON = localStorage.getItem('schools');
     if (!schoolsJSON) {
         return {};
@@ -73,13 +72,62 @@ function getEventsList() {
     return eventsList;
 }
 
+
+async function getEventsList() {
+
+    console.log("Gete events list");
+
+    try {
+        const response = await fetch('/api/events', {
+          method: 'GET',
+          headers: { 'content-type': 'application/json' },
+        });
+  
+        // Store what the service gave us as the events
+        const eventsList = await response.json();
+        localStorage.setItem('events', JSON.stringify(eventsList));
+        return eventsList;
+
+      } catch {
+        console.log("ERROR");
+        // If there was an error then just get events locally
+        const eventsListJSON = localStorage.getItem('events');
+        if (eventsListJSON) {
+            return JSON.parse(eventsListJSON);
+        } else {
+            return getLocalEventsList();
+        }
+      }
+}
+
 function getTableElement() {
     const tblEl = document.createElement('td');
     tblEl.className = "events-table-element";
     return tblEl;
 }
 
-function handleDateSelected(selectedDateEl, currDay, currMonth, currYear) {
+
+function renderEventsList(currDateStr, eventsList) {
+
+    eventsTblBodyEl.innerHTML = "";
+    if (eventsList[currDateStr]) {
+
+        for (const event of eventsList[currDateStr]) {
+
+            const tblRowEl = document.createElement('tr');
+            const tblSchoolEl = getTableElement();
+            tblSchoolEl.textContent = event.schoolName;
+            const tblEventNameEl = getTableElement();
+            tblEventNameEl.textContent = event.name;
+
+            tblRowEl.append(tblSchoolEl, tblEventNameEl);
+
+            eventsTblBodyEl.appendChild(tblRowEl);
+        }
+    }
+}
+
+async function handleDateSelected(selectedDateEl, currDay, currMonth, currYear) {
 
     let currDayStr = getCurrStr(currDay);
     let currMonthStr = getCurrStr(currMonth + 1);
@@ -98,22 +146,9 @@ function handleDateSelected(selectedDateEl, currDay, currMonth, currYear) {
 
     selectedDayDisplayEl.textContent = currDateStr;
 
-    const eventsList = getEventsList();
-    eventsTblBodyEl.innerHTML = "";
-    if (eventsList[currDateStr]) {
-        for (const event of eventsList[currDateStr]) {
+    const eventsList = await getEventsList();
+    renderEventsList(currDateStr, eventsList);
 
-            const tblRowEl = document.createElement('tr');
-            const tblSchoolEl = getTableElement();
-            tblSchoolEl.textContent = event.schoolName;
-            const tblEventNameEl = getTableElement();
-            tblEventNameEl.textContent = event.name;
-
-            tblRowEl.append(tblSchoolEl, tblEventNameEl);
-
-            eventsTblBodyEl.appendChild(tblRowEl);
-        }
-    }
 }
 
 function getDateEl(className, currDay, currMonth, currYear) {

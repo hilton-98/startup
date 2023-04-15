@@ -24,7 +24,7 @@ let usernameDisplayEl = null;
 let logoutBtnEl = null;
 
 
-function handleRemoveSchool(schoolName) {
+function removeSchoolLocal(schoolName) {
 
     const schoolsJSON = localStorage.getItem('schools');
     let schools;
@@ -36,20 +36,54 @@ function handleRemoveSchool(schoolName) {
 
     delete schools[schoolName];
     localStorage.setItem('schools', JSON.stringify(schools));
+}
 
-    
+async function removeSchool(schoolName) {
+
+    try {
+
+        const response = await fetch('/api/schools/delete', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify( { schoolName: schoolName } ),
+        });
+        const schools = await response.json();
+
+        localStorage.setItem('schools', schools);
+    } catch {
+        removeSchoolLocal(schoolName);
+    }
+}
+
+async function handleRemoveSchool(schoolName) {
+
+    removeSchool(schoolName);
     renderSchools();
 }
 
-function renderSchools() {
-    
-    const schoolsJSON = localStorage.getItem('schools');
-    let schools;
-    if (!schoolsJSON) {
-        return;
-    } else {
-        schools = JSON.parse(schoolsJSON);
+async function loadSchools() {
+
+    let schools = {};
+
+    try {
+        const response = await fetch('/api/schools');
+        schools = await response.json();
+
+        localStorage.setItem('schools', JSON.stringify(schools));
+    } catch {
+        const schoolsJSON = localStorage.getItem('schools');
+        if (schoolsJSON) {
+            schools = JSON.parse(schoolsJSON);
+        }
     }
+
+    return schools;
+}
+
+
+async function renderSchools() {
+    
+    const schools = await loadSchools();
 
     mySchoolsTblBodyEl.innerHTML = "";
 

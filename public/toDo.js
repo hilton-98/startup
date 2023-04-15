@@ -83,10 +83,30 @@ function handleEditEvent() {
     const eventDateInputEl = getInputEl("event-date-input", "date");
     eventDateInputEl.value = eventDate;
     tblRowData[2].appendChild(eventDateInputEl);
-
 }
 
-function handleSave() {
+
+async function saveSchools(schools) {
+
+    try {
+        const response = await fetch('/api/schools/update', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(schools),
+        });
+  
+        // Store what the service gave us as the schools
+        schools = await response.json();
+        localStorage.setItem('schools', JSON.stringify(schools));
+    } catch {
+        // If there was an error then just track schools locally
+        localStorage.setItem('schools', JSON.stringify(schools));
+    }
+}
+
+
+
+function getSchoolsFromTable() {
 
     let schools = {};
 
@@ -126,15 +146,16 @@ function handleSave() {
         }
     }
 
+    return schools;
+}
 
-    // WEBSOCKET SAVE HERE
+async function handleSave() {
 
+    const schools = getSchoolsFromTable();
 
-    localStorage.setItem('schools', JSON.stringify(schools));
+    await saveSchools(schools);
 
-    tblBodyEl.innerHTML = "";
-    populateToDoList(tblBodyEl, schools);
-
+    renderToDoList(tblBodyEl, schools);
     currSelectedRow = undefined;
 }
 
@@ -153,8 +174,10 @@ function handleTblRowSelect(selectedRow) {
     currSelectedRow = selectedRow;
 }
 
-function populateToDoList(tblBodyEl, schools) {
+function renderToDoList(tblBodyEl, schools) {
     
+    tblBodyEl.innerHTML = "";
+
     for (const [schoolName, school] of Object.entries(schools)) {
         for (const event of school.events) {
             
@@ -175,18 +198,30 @@ function populateToDoList(tblBodyEl, schools) {
     }
 }
 
-function init() {
+async function loadSchools() {
+
+    let schools = {};
+
+    try {
+        const response = await fetch('/api/schools');
+        schools = await response.json();
+
+        localStorage.setItem('schools', JSON.stringify(schools));
+    } catch {
+        const schoolsJSON = localStorage.getItem('schools');
+        if (schoolsJSON) {
+            schools = JSON.parse(schoolsJSON);
+        }
+    }
+
+    return schools;
+}
+
+async function init() {
     addHeader(headerEl, localStorage.getItem('username'));
     addSidebar(sidebarEl, "To Do");
 
-    const schoolsJSON = localStorage.getItem('schools');
-    let schools;
-    if (!schoolsJSON) {
-        schools = {};
-    } else {
-        schools = JSON.parse(schoolsJSON);
-    }
-    populateToDoList(tblBodyEl, schools);
+    renderToDoList(tblBodyEl, await loadSchools());
 
     addFooter(footerEl);
     
