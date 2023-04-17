@@ -19,6 +19,7 @@ const loginBtnEl = document.getElementById('login-btn');
 const createAccountBtnEl = document.getElementById('create-account-btn');
 const usernameEl = document.getElementById('username-input');
 const passwordEl = document.getElementById('password-input');
+const errorMsgEl = document.getElementById('error-msg');
 
 let userInfoEl = null;
 let usernameDisplayEl = null;
@@ -183,7 +184,7 @@ async function loginOrCreate(username, password, url) {
             loginDisplay();
             renderSchools();
         } else {
-            usernameDisplayEl.textContent = `⚠ Error: ${res.msg}`;
+            errorMsgEl.textContent = `⚠ Error: ${res.msg}`;
         }
     
     } catch(e) {
