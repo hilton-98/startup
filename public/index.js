@@ -2,6 +2,7 @@ import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
+import ServerInterface from "./serverInterface.js";
 
 const COLS_PER_ROW = 3;
 
@@ -33,16 +34,11 @@ function removeSchoolLocal(schoolName) {
 
 async function removeSchool(school) {
 
-    try {
+    const schools = await ServerInterface.removeSchool(school);
 
-        const response = await fetch('/api/schools/delete', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(school),
-        });
-        const schools = await response.json();
+    if (schools) {
         ClientStorage.setSchools(schools);
-    } catch {
+    } else {
         removeSchoolLocal(school.schoolName);
     }
 }
