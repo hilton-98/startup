@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { PeerProxy } = require('./peerProxy.js');
+
 
 const authCookieName = 'token';
 
@@ -28,7 +30,7 @@ app.use(`/api`, apiRouter);
 // CreateAuth token for a new user
 apiRouter.post('/auth/create', async (req, res) => {
     
-    console.log("create");
+    // console.log("create");
 
     if (await DB.getUser(req.body.username)) {
       res.status(409).send({ msg: 'Existing user' });
@@ -50,7 +52,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 
     const user = await DB.getUser(req.body.username);
 
-    console.log("user: " + JSON.stringify(user));
+    // console.log("user: " + JSON.stringify(user));
 
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
@@ -62,7 +64,10 @@ apiRouter.post('/auth/login', async (req, res) => {
     res.status(401).send({ msg: 'Unauthorized' });
 });
 
-apiRouter.delete('auth/logout', (__req, res) => {
+apiRouter.delete('/auth/logout', (__req, res) => {
+
+    console.log("Logout");
+
     res.clearCookie(authCookieName);
     res.status(204).end();
 });
@@ -125,6 +130,8 @@ app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
+
+new PeerProxy(httpService);

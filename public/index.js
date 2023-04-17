@@ -113,10 +113,6 @@ async function handleCreateAccount() {
     await createUser(usernameEl.value, passwordEl.value);
 }
 
-function handleLogout() {
-    logout();
-}
-
 async function loadSchools() {
 
     const serverSchools = await ServerInterface.getSchools();
@@ -139,7 +135,6 @@ function init() {
 
     loginBtnEl.addEventListener('click', handleLogin);
     createAccountBtnEl.addEventListener('click', handleCreateAccount);
-    logoutBtnEl.addEventListener('click', handleLogout);
 }
 
 function initLoggedIn() {
@@ -156,39 +151,24 @@ function initLoggedOut() {
 }
 
 async function createUser(username, password) {
-    await loginOrCreate(username, password, '/api/auth/create');
-}
+    const response = await ServerInterface.createUser(username, password);
+    loginOrCreate(username, response);}
 
 async function login(username, password) {
-    await loginOrCreate(username, password, '/api/auth/login');
+    const response = await ServerInterface.login(username, password);
+    loginOrCreate(username, response);
 }
 
-async function loginOrCreate(username, password, url) {
+function loginOrCreate(username, response) {
 
-    try {
+    if (response?.status === 200) {
+        ClientStorage.setUsername(username);
+        usernameDisplayEl.textContent = username;
 
-        const body = { username: username, password: password };
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify(body),
-        });
-
-        const res = await response.json();
-
-        if (response?.status === 200) {
-            ClientStorage.setUsername(username);
-            usernameDisplayEl.textContent = username;
-
-            loginDisplay();
-            renderSchools();
-        } else {
-            errorMsgEl.textContent = `⚠ Error: ${res.msg}`;
-        }
-    
-    } catch(e) {
-        console.log(e.message);
+        loginDisplay();
+        renderSchools();
+    } else {
+        errorMsgEl.textContent = `⚠ Error: ${response.msg}`;
     }
 }
 

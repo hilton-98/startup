@@ -1,19 +1,14 @@
 import ClientStorage from "../clientStorage.js";
+import ServerInterface from "../serverInterface.js";
 const APP_TITLE = "Runway";
 
 
 async function handleLogout() {
 
-    try {
-        await fetch(`/api/auth/logout`, {
-            method: 'delete',
-        });
-    } catch(e) {
-        console.log(e.message);
-    }
+    console.log('handleLogout');
 
+    await ServerInterface.logout();
     ClientStorage.clear();
-
     window.location.replace("./index.html");
 }
 
