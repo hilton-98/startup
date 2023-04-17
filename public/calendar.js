@@ -2,6 +2,7 @@ import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
+import ServerInterface from "./serverInterface.js";
 
 
 const bodyEl = document.querySelector('body');
@@ -9,7 +10,6 @@ const headerEl = bodyEl.querySelector('header');
 const mainEl = bodyEl.querySelector('main');
 const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
-
 
 const daysEl = document.querySelector(".days");
 const currentDateEl = document.querySelector(".current-date");
@@ -21,7 +21,6 @@ const eventsTblBodyEl = document.getElementById('events-table-body');
 
 let prevSelectedElClassName = '';
 let prevSelectedEl;
-
 
 // storing full name of all months in array
 const months = [
@@ -51,38 +50,13 @@ function getCurrStr(dayOrMonth) {
     }
 }
 
-function getLocalEventsList() {
+async function getEvents() {
 
-    const schools = ClientStorage.getSchools();
-
-    let eventsList = {};
-    for (const [schoolName, school] of Object.entries(schools)) {
-        for (const event of school.events) {
-
-            if (eventsList[event.date]) {
-                eventsList[event.date].push({ schoolName: schoolName, name: event.name })
-            } else {
-                eventsList[event.date] = [{ schoolName: schoolName, name: event.name }];
-            }
-        }
-    }
-
-    return eventsList;
-}
-
-
-async function getEventsList() {
-
-    try {
-        const response = await fetch('/api/events', {
-          method: 'GET',
-          headers: { 'content-type': 'application/json' },
-        });
-  
-        return await response.json();
-
-    } catch {
-        return getLocalEventsList();
+    const events = await ServerInterface.getEvents();
+    if (events) {
+        return events;
+    } else {
+        return ClientStorage.getEvents();
     }
 }
 
@@ -119,8 +93,6 @@ async function handleDateSelected(selectedDateEl, currDay, currMonth, currYear) 
     let currMonthStr = getCurrStr(currMonth + 1);
     let currDateStr = `${currYear}-${currMonthStr}-${currDayStr}`;
 
-    console.log('currDate: ' + currDateStr);
-
     if (prevSelectedEl) {
         prevSelectedEl.className = prevSelectedElClassName;
     }
@@ -132,7 +104,7 @@ async function handleDateSelected(selectedDateEl, currDay, currMonth, currYear) 
 
     selectedDayDisplayEl.textContent = currDateStr;
 
-    const eventsList = await getEventsList();
+    const eventsList = await getEvents();
     renderEventsList(currDateStr, eventsList);
 
 }

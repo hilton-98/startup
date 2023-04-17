@@ -36,4 +36,30 @@ export default class ClientStorage {
     static clear() {
         localStorage.clear();
     }
+
+    static getEvents() {
+        
+        const schools = ClientStorage.getSchools();
+
+        let eventsList = {};
+        for (const [schoolName, school] of Object.entries(schools)) {
+            for (const event of school.events) {
+    
+                if (eventsList[event.date]) {
+                    eventsList[event.date].push({ schoolName: schoolName, name: event.name })
+                } else {
+                    eventsList[event.date] = [{ schoolName: schoolName, name: event.name }];
+                }
+            }
+        }
+    
+        return eventsList;
+    }
+
+    static removeSchool(schoolName) {
+
+        const schools = ClientStorage.getSchools();
+        delete schools[schoolName];
+        ClientStorage.setSchools(schools);
+    }
 }

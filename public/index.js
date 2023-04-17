@@ -15,7 +15,6 @@ const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 const mySchoolsTblBodyEl = document.getElementById('my-schools-table-body');
 
-
 const loginBtnEl = document.getElementById('login-btn');
 const createAccountBtnEl = document.getElementById('create-account-btn');
 const usernameEl = document.getElementById('username-input');
@@ -24,46 +23,6 @@ const passwordEl = document.getElementById('password-input');
 let userInfoEl = null;
 let usernameDisplayEl = null;
 let logoutBtnEl = null;
-
-function removeSchoolLocal(schoolName) {
-
-    const schools = ClientStorage.getSchools();
-    delete schools[schoolName];
-    ClientStorage.setSchools(schools);
-}
-
-async function removeSchool(school) {
-
-    const schools = await ServerInterface.removeSchool(school);
-
-    if (schools) {
-        ClientStorage.setSchools(schools);
-    } else {
-        removeSchoolLocal(school.schoolName);
-    }
-}
-
-async function handleRemoveSchool(school) {
-
-    removeSchool(school);
-    renderSchools();
-}
-
-async function loadSchools() {
-
-    let schools = {};
-
-    try {
-        const response = await fetch('/api/schools');
-        schools = await response.json();
-
-        ClientStorage.setSchools(schools);
-    } catch {
-        schools = ClientStorage.getSchools();
-    }
-
-    return schools;
-}
 
 
 async function renderSchools() {
@@ -114,11 +73,27 @@ async function renderSchools() {
     mySchoolsTblBodyEl.append(tblRowEl);
 }
 
+async function removeSchool(school) {
+
+    const schools = await ServerInterface.removeSchool(school);
+
+    if (schools) {
+        ClientStorage.setSchools(schools);
+    } else {
+        ClientStorage.removeSchool(school.schoolName);
+    }
+}
+
+async function handleRemoveSchool(school) {
+
+    await removeSchool(school);
+    renderSchools();
+}
+
 function isValidUsernameAndPassword() {
     return (usernameEl.value !== '' && passwordEl.value !== '');
 
 }
-
 async function handleLogin() {
 
     if (!isValidUsernameAndPassword()) {
@@ -139,6 +114,17 @@ async function handleCreateAccount() {
 
 function handleLogout() {
     logout();
+}
+
+async function loadSchools() {
+
+    const serverSchools = await ServerInterface.getSchools();
+    
+    if (serverSchools) {
+        return serverSchools;
+    } else {
+        return ClientStorage.getSchools();
+    }
 }
 
 function init() {

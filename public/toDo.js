@@ -2,6 +2,7 @@ import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
+import ServerInterface from "./serverInterface.js";
 
 
 const bodyEl = document.querySelector('body');
@@ -17,6 +18,7 @@ const editBtnEl = document.getElementById('edit-btn');
 const saveBtnEl = document.getElementById('save-btn');
 
 let currSelectedRow;
+
 
 function getInputEl(className, type) {
 
@@ -89,18 +91,11 @@ function handleEditEvent() {
 
 async function saveSchools(schools) {
 
-    try {
-        const response = await fetch('/api/schools/update', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(schools),
-        });
+    const serverSchools = await ServerInterface.updateSchools(schools);
 
-        ClientStorage.setSchools(await response.json());
-
-    } catch(e) {
-
-        console.log(e.message);
+    if (serverSchools) {
+        ClientStorage.setSchools(serverSchools);
+    } else {
         ClientStorage.setSchools(schools);
     }
 }
@@ -205,15 +200,11 @@ function renderToDoList(tblBodyEl, schools) {
 
 async function loadSchools() {
 
-    try {
-        const response = await fetch('/api/schools');
-        const schools = await response.json();
-
-        ClientStorage.setSchools(schools);
-        return schools;
-    } catch(e) {
-        
-        console.log(e.message);
+    const serverSchools = await ServerInterface.getSchools();
+    
+    if (serverSchools) {
+        return serverSchools;
+    } else {
         return ClientStorage.getSchools();
     }
 }
