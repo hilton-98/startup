@@ -100,7 +100,7 @@ async function handleLogin() {
         return;
     }
 
-    await login(usernameEl.value);
+    await login(usernameEl.value, passwordEl.value);
 }
 
 async function handleCreateAccount() {
@@ -109,7 +109,7 @@ async function handleCreateAccount() {
         return;
     }
 
-    await login(usernameEl.value);
+    await createUser(usernameEl.value, passwordEl.value);
 }
 
 function handleLogout() {
@@ -131,71 +131,79 @@ function init() {
     addHeader(headerEl);
     addSidebar(sidebarEl, "Home");
     addFooter(footerEl);
-    renderSchools();
-
 
     usernameDisplayEl = document.getElementById('username-display');
     logoutBtnEl = document.getElementById('logout-btn');
     userInfoEl = document.getElementById('user-info');
+
+    loginBtnEl.addEventListener('click', handleLogin);
+    createAccountBtnEl.addEventListener('click', handleCreateAccount);
+    logoutBtnEl.addEventListener('click', handleLogout);
 }
 
 function initLoggedIn() {
 
     init();
-
-    loginEl.hidden = true;
-    contentEl.hidden = false;
-    sidebarEl.hidden = false;
-    userInfoEl.hidden = false;
-
-    loginBtnEl.addEventListener('click', handleLogin);
-    createAccountBtnEl.addEventListener('click', handleCreateAccount);
-    logoutBtnEl.addEventListener('click', handleLogout);
+    loginDisplay();
+    renderSchools();
 }
 
 function initLoggedOut() {
 
     init();
-
-    contentEl.hidden = true;
-    sidebarEl.hidden = true;
-    userInfoEl.hidden = true;
-
-    loginBtnEl.addEventListener('click', handleLogin);
-    createAccountBtnEl.addEventListener('click', handleCreateAccount);
-    logoutBtnEl.addEventListener('click', handleLogout);
+    logoutDisplay();
 }
 
-async function login(username) {
+async function createUser(username, password) {
+    await loginOrCreate(username, password, '/api/auth/create');
+}
 
-    loginEl.hidden = true;
-    contentEl.hidden = false;
-    sidebarEl.hidden = false;
-    userInfoEl.hidden = false;
+async function login(username, password) {
+    await loginOrCreate(username, password, '/api/auth/login');
+}
 
-    ClientStorage.setUsername(username);
-    usernameDisplayEl.textContent = username;
+async function loginOrCreate(username, password, url) {
 
     try {
 
-        const response = await fetch('/api/username', {
+        const body = { username: username, password: password };
+
+        const response = await fetch(url, {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ username: username }),
+            headers: { 'content-type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify(body),
         });
 
         const res = await response.json();
 
+        if (response?.status === 200) {
+            ClientStorage.setUsername(username);
+            usernameDisplayEl.textContent = username;
+
+            loginDisplay();
+            renderSchools();
+        } else {
+            usernameDisplayEl.textContent = `⚠ Error: ${res.msg}`;
+        }
+    
     } catch(e) {
         console.log(e.message);
     }
 }
 
-function logout() {
+function logoutDisplay() {
+
     loginEl.hidden = false;
     contentEl.hidden = true;
     sidebarEl.hidden = true;
     userInfoEl.hidden = true;
+}
+
+function loginDisplay() {
+    loginEl.hidden = true;
+    contentEl.hidden = false;
+    sidebarEl.hidden = false;          
+    userInfoEl.hidden = false;
 }
 
 if (ClientStorage.getUsername() !== '') {

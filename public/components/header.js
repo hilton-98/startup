@@ -2,11 +2,18 @@ import ClientStorage from "../clientStorage.js";
 const APP_TITLE = "Runway";
 
 
-function handleLogout(usernameDisplayEl) {
-    console.log("Logging out?");
+async function handleLogout() {
 
-    usernameDisplayEl.textContent = '';
+    try {
+        await fetch(`/api/auth/logout`, {
+            method: 'delete',
+        });
+    } catch(e) {
+        console.log(e.message);
+    }
+
     ClientStorage.clear();
+
     window.location.replace("./index.html");
 }
 
@@ -33,7 +40,7 @@ export function addHeader(headerEl) {
     logoutButtonEl.id = "logout-btn";
     logoutButtonEl.className = "logout-action-btn";
     logoutButtonEl.textContent = "Logout";
-    logoutButtonEl.addEventListener('click', () => handleLogout(usernameDisplayEl));
+    logoutButtonEl.addEventListener('click', () => handleLogout());
 
     userInfoEl.append(usernameDisplayEl, logoutButtonEl);
 

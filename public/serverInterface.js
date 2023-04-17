@@ -19,7 +19,7 @@ export default class ServerInterface {
 
             return (await responseJSON.json());
     
-        } catch {
+        } catch(e) {
             console.log(e.message);
             return null;
         }
@@ -57,21 +57,6 @@ export default class ServerInterface {
 
         const response = await ServerInterface.post(ServerInterface.UPDATE_SCHOOLS, JSON.stringify(schools));
         return response;
-
-        // try {
-        //     const response = await fetch('/api/schools/update', {
-        //       method: 'POST',
-        //       headers: { 'content-type': 'application/json' },
-        //       body: JSON.stringify(schools),
-        //     });
-    
-        //     ClientStorage.setSchools(await response.json());
-    
-        // } catch(e) {
-    
-        //     console.log(e.message);
-        //     ClientStorage.setSchools(schools);
-        // }
     }
 
     static async removeSchool(school) {
