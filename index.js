@@ -30,8 +30,6 @@ app.use(`/api`, apiRouter);
 // CreateAuth token for a new user
 apiRouter.post('/auth/create', async (req, res) => {
     
-    // console.log("create");
-
     if (await DB.getUser(req.body.username)) {
       res.status(409).send({ msg: 'Existing user' });
     } else {
@@ -48,11 +46,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 apiRouter.post('/auth/login', async (req, res) => {
 
-    console.log("login");
-
     const user = await DB.getUser(req.body.username);
-
-    // console.log("user: " + JSON.stringify(user));
 
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
@@ -65,8 +59,6 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 apiRouter.delete('/auth/logout', (__req, res) => {
-
-    console.log("Logout");
 
     res.clearCookie(authCookieName);
     res.status(204).end();

@@ -168,7 +168,7 @@ function loginOrCreate(username, response) {
         loginDisplay();
         renderSchools();
     } else {
-        errorMsgEl.textContent = `⚠ Error: ${response.msg}`;
+        errorMsgEl.textContent = `⚠ Error: ${response.obj.msg}`;
     }
 }
 

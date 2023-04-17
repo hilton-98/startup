@@ -72,8 +72,6 @@ export default class ServerInterface {
     }
 
     static async login(username, password) {
-
-        console.log("login");
     
         const body = { username: username, password: password };
 

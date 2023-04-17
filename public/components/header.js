@@ -5,8 +5,6 @@ const APP_TITLE = "Runway";
 
 async function handleLogout() {
 
-    console.log('handleLogout');
-
     await ServerInterface.logout();
     ClientStorage.clear();
     window.location.replace("./index.html");
