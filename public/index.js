@@ -3,6 +3,7 @@ import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
 import ServerInterface from "./serverInterface.js";
+import WebSocketInterface from "./webSocketInterface.js";
 
 const COLS_PER_ROW = 3;
 
@@ -14,6 +15,7 @@ const loginEl = mainEl.querySelector('.login');
 const sidebarEl = mainEl.querySelector('.sidebar');
 const footerEl = bodyEl.querySelector('footer');
 const mySchoolsTblBodyEl = document.getElementById('my-schools-table-body');
+const messagesTblBodyEl = document.getElementById('messages-table-body');
 
 const loginBtnEl = document.getElementById('login-btn');
 const createAccountBtnEl = document.getElementById('create-account-btn');
@@ -74,6 +76,25 @@ async function renderSchools() {
     mySchoolsTblBodyEl.append(tblRowEl);
 }
 
+
+function renderMessages() {
+
+    const messages = ClientStorage.getMessages();
+
+    messagesTblBodyEl.innerHTML = "";
+
+    for (const message of messages) {
+
+        const tblRowEl = document.createElement('tr');
+        const tblDataEl = document.createElement('td');
+        tblDataEl.textContent = message;
+
+        tblRowEl.appendChild(tblDataEl);
+        messagesTblBodyEl.appendChild(tblRowEl);
+    }
+
+}
+
 async function removeSchool(school) {
 
     const schools = await ServerInterface.removeSchool(school);
@@ -102,6 +123,7 @@ async function handleLogin() {
     }
 
     await login(usernameEl.value, passwordEl.value);
+    WebSocketInterface.init();
 }
 
 async function handleCreateAccount() {
@@ -125,6 +147,7 @@ async function loadSchools() {
 }
 
 function init() {
+    WebSocketInterface.configureWebSocket();
     addHeader(headerEl);
     addSidebar(sidebarEl, "Home");
     addFooter(footerEl);
@@ -132,9 +155,6 @@ function init() {
     usernameDisplayEl = document.getElementById('username-display');
     logoutBtnEl = document.getElementById('logout-btn');
     userInfoEl = document.getElementById('user-info');
-
-    loginBtnEl.addEventListener('click', handleLogin);
-    createAccountBtnEl.addEventListener('click', handleCreateAccount);
 }
 
 function initLoggedIn() {
@@ -142,6 +162,7 @@ function initLoggedIn() {
     init();
     loginDisplay();
     renderSchools();
+    renderMessages();
 }
 
 function initLoggedOut() {
@@ -167,6 +188,7 @@ function loginOrCreate(username, response) {
 
         loginDisplay();
         renderSchools();
+        renderMessages();
     } else {
         errorMsgEl.textContent = `⚠ Error: ${response.obj.msg}`;
     }
@@ -178,6 +200,9 @@ function logoutDisplay() {
     contentEl.hidden = true;
     sidebarEl.hidden = true;
     userInfoEl.hidden = true;
+
+    loginBtnEl.addEventListener('click', handleLogin);
+    createAccountBtnEl.addEventListener('click', handleCreateAccount);
 }
 
 function loginDisplay() {
@@ -186,6 +211,8 @@ function loginDisplay() {
     sidebarEl.hidden = false;          
     userInfoEl.hidden = false;
 }
+
+
 
 if (ClientStorage.getUsername() !== '') {
     initLoggedIn();

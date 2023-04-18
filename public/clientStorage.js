@@ -2,6 +2,10 @@ export default class ClientStorage {
 
     static USERNAME_KEY = 'username';
     static SCHOOLS_KEY = 'schools';
+    static MESSAGES_KEY = 'messages';
+
+    static MAX_MESSAGES = 10;
+
 
     static getUsername() {
 
@@ -61,5 +65,32 @@ export default class ClientStorage {
         const schools = ClientStorage.getSchools();
         delete schools[schoolName];
         ClientStorage.setSchools(schools);
+    }
+
+    static setMessages(messages) {
+        localStorage.setItem(ClientStorage.MESSAGES_KEY, JSON.stringify(messages));
+    }
+
+    static getMessages() {
+        const messagesJSON = localStorage.getItem(ClientStorage.MESSAGES_KEY);
+
+        if (!messagesJSON) {
+            return [];
+        } else {
+            return JSON.parse(messagesJSON);
+        }
+    }
+
+    static addMessage(msg) {
+        console.log("Adding message");
+
+        const messages = ClientStorage.getMessages();
+        messages.push(msg);
+        if (messages.length > ClientStorage.MAX_MESSAGES) {
+            console.log("Need to pull a message out");
+        }
+        ClientStorage.setMessages(messages);
+        console.log("Messages: " + JSON.stringify(messages));
+        console.log("ClientStorage messages: " + JSON.stringify(ClientStorage.getMessages()));
     }
 }

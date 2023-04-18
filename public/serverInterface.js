@@ -56,7 +56,7 @@ export default class ServerInterface {
                 method: 'DELETE',
             });
 
-            return ServerInterface.getRes(await response.json(), response.status);
+            // return ServerInterface.getRes(await response.json(), response.status);
 
         } catch(e) {
             console.log(e.message);

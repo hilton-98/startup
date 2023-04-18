@@ -3,7 +3,7 @@ import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
 import ServerInterface from "./serverInterface.js";
-
+import WebSocketInterface from "./webSocketInterface.js";
 
 const bodyEl = document.querySelector('body');
 const headerEl = bodyEl.querySelector('header');
@@ -159,6 +159,7 @@ function renderCalendar(currMonth, currYear) {
 
 function init() {
 
+    WebSocketInterface.configureWebSocket();
     addHeader(headerEl);
     addSidebar(sidebarEl, "Calendar");
 

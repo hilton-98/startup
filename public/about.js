@@ -26,19 +26,19 @@ function renderQuote(quote) {
     containerEl.appendChild(authorEl);
   }
 
-function displayQuote() {
+async function displayQuote() {
 
-    fetch('https://api.quotable.io/random')
-      .then((response) => response.json())
-      .then(renderQuote);
+    const response = await fetch('https://api.quotable.io/random');
+    const resObj = await response.json();
+    renderQuote(resObj);
 }
 
 
-function init() {
+async function init() {
     addHeader(headerEl);
     addSidebar(sidebarEl, "About");
     addFooter(footerEl);
-    displayQuote();
+    await displayQuote();
 }
 
 init();

@@ -3,6 +3,7 @@ import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
 import ServerInterface from "./serverInterface.js";
+import WebSocketInterface from "./webSocketInterface.js";
 
 
 const bodyEl = document.querySelector('body');
@@ -89,7 +90,28 @@ function handleEditEvent() {
 }
 
 
+async function notifySchoolsSaved(newSchools) {
+
+    const oldSchools = await ServerInterface.getSchools();
+
+    for (const [schoolName, school] of Object.entries(newSchools)) {
+        if (!oldSchools[schoolName]) {
+            WebSocketInterface.schoolAdded(schoolName);
+        }
+    }
+
+
+    for (const [schoolName, school] of Object.entries(oldSchools)) {
+        if (!newSchools[schoolName]) {
+            WebSocketInterface.schoolRemoved(schoolName);
+        }
+    }
+
+}
+
 async function saveSchools(schools) {
+
+    await notifySchoolsSaved(schools);
 
     const serverSchools = await ServerInterface.updateSchools(schools);
 
@@ -210,6 +232,7 @@ async function loadSchools() {
 }
 
 async function init() {
+    WebSocketInterface.configureWebSocket();
     addHeader(headerEl);
     addSidebar(sidebarEl, "To Do");
 
