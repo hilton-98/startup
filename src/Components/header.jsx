@@ -1,22 +1,20 @@
 import React from 'react';
 
-import './main.css'
+import ClientStorage from "../clientStorage.js";
+import ServerInterface from "../serverInterface.js";
 
-import ClientStorage from "./clientStorage.js";
-import ServerInterface from "./serverInterface.js";
-
-
-const APP_TITLE = "Runway";
-
-
-async function handleLogout() {
-
-    await ServerInterface.logout();
-    ClientStorage.clear();
-    window.location.replace("./index.html");
-}
 
 export function Header() {
+
+    const APP_TITLE = "Runway";
+
+
+    async function handleLogout() {
+
+        await ServerInterface.logout();
+        ClientStorage.clear();
+        window.location.replace("./index.html");
+    }
 
     const username = ClientStorage.getUsername();
 

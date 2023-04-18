@@ -2,23 +2,50 @@ import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
-import './sidebar.css';
 
-import { Header } from "./header";
-import { Sidebar } from "./sidebar";
-import { Footer } from "./footer";
+import { Header } from "./Components/header";
+import { Sidebar } from "./Components/sidebar";
+import { Footer } from "./Components/footer";
+
+import { Login } from './login/login';
+import { HomeContent } from './homeContent';
+
+import AuthState from "./login/authState";
+import ClientStorage from './clientStorage';
 
 function App() {
+
+  const [authState, setAuthState] = React.useState(AuthState.UNKOWN);
+
+  const username = ClientStorage.getUsername();
+
+  React.useEffect(() => {
+    if (username) {
+      fetch(`/api/user/${username}`)
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          }
+        })
+        .then((user) => {
+          const state = user?.authenticated ? AuthState.Authenticated : AuthState.Unauthenticated;
+          setAuthState(state);
+        });
+    } else {
+      setAuthState(AuthState.Unauthenticated);
+    }
+  }, [username]);
+
+
   return (
     <div>
-      <Header />
+      {authState === AuthState.AUTHENTICATED && <Header />}
       <main className="bg-secondary">
-        <Sidebar />
-        <section className="content">
-          Hello There
-        </section>
+        {authState === AuthState.AUTHENTICATED && <Sidebar />}
+        {authState === AuthState.AUTHENTICATED && <HomeContent />}
+        {authState !== AuthState.AUTHENTICATED && <Login />}
       </main>
-      <Footer />
+      {authState === AuthState.AUTHENTICATED && <Footer />}
     </div>
   );
 }

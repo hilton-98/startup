@@ -3,7 +3,7 @@ import react from 'react';
 import './sidebar.css';
 
 
-export function Sidebar(currPageName) {
+export function Sidebar() {
     
     const navLinkList = [
         { name: "Home", path: "./index.html" },

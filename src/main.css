@@ -5,8 +5,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-
-    border: 1px solid red;
 }
   
 header {
@@ -128,34 +126,6 @@ footer {
     margin: 50px;
     margin-top: 0px;
     padding-right: 10px;
-}
-
-.login {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%
-}
-
-.login-actions {
-    display: flex;
-    flex-direction: column;
-}
-
-.login-input {
-    display: flex;
-    flex-direction: row;
-}
-
-.login-action-btn {
-    border-radius: 5px;
-    margin-top: 3px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    text-transform: uppercase;
-    font-weight: bold;
 }
 
 .my-schools-table-element {

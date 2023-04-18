@@ -1,8 +1,5 @@
 import react from 'react';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './main.css'
-
 export function Footer() {
 
     const AUTHOR_NAME = "Kevin Hilton";
