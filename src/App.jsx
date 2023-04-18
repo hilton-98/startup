@@ -3,9 +3,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 
-import { Header } from "./Components/header";
-import { Sidebar } from "./Components/sidebar";
-import { Footer } from "./Components/footer";
+import { Header } from "./components/header";
+import { Sidebar } from "./components/sidebar";
+import { Footer } from "./components/footer";
 
 import { Login } from './login/login';
 import { HomeContent } from './home/homeContent';

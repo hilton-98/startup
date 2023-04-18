@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './footer.css';
+
 export function Footer() {
 
     const AUTHOR_NAME = "Kevin Hilton";

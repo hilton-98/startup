@@ -46,10 +46,6 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 apiRouter.post('/auth/login', async (req, res) => {
 
-  console.log("Logging in");
-  console.log('username: ' + req.body.username);
-  console.log('password: ' + req.body.password);
-
   const user = await DB.getUser(req.body.username);
   console.log("user: " + JSON.stringify(user));
 

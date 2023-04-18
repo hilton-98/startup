@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './header.css';
+
 import ClientStorage from "../clientStorage.js";
 import ServerInterface from "../serverInterface.js";
 

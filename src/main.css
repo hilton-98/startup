@@ -73,41 +73,6 @@ footer {
     transform: translateY(-50%);
 }
 
-.user-info {
-    display: flex;
-    flex-direction: row;
-    align-items: right;
-    justify-content: right;
-    width: 100%;
-    padding: 10px;
-}
-
-.logout-action-btn {
-    border-radius: 5px;
-    margin-top: 3px;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    text-transform: uppercase;
-    font-weight: bold;
-    width: 80px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.username-display {
-    margin-top: 5px;
-} 
-
-/* Footer styles */
-.git-hub-link {
-    float: right;
-    color: var(--secondary-color);
-}
-
-.author-name {
-    float: left;
-}
-
 /* Content styles */
 .content {
     flex: 5;

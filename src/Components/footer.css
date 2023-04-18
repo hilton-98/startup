@@ -1,0 +1,9 @@
+/* Footer styles */
+.git-hub-link {
+    float: right;
+    color: var(--secondary-color);
+}
+
+.author-name {
+    float: left;
+}
