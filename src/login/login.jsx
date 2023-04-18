@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import './login.css';
 
-import ClientStorage from '../clientStorage';
-import ServerInterface from '../serverInterface';
-import WebSocketInterface from '../webSocketInterface';
+import ClientStorage from '../interfaces/clientStorage';
+import ServerInterface from '../interfaces/serverInterface';
+import WebSocketInterface from '../interfaces/webSocketInterface';
 
 
 export function Login(props) {

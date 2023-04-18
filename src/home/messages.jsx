@@ -2,7 +2,7 @@ import React from 'react';
 
 import './messages.css';
 
-import ClientStorage from "../clientStorage";
+import ClientStorage from "../interfaces/clientStorage";
 
 
 export function Messages() {

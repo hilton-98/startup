@@ -2,8 +2,8 @@ import React from 'react';
 
 import './header.css';
 
-import ClientStorage from "../clientStorage.js";
-import ServerInterface from "../serverInterface.js";
+import ClientStorage from "../interfaces/clientStorage.js";
+import ServerInterface from "../interfaces/serverInterface.js";
 
 
 export function Header() {
@@ -15,7 +15,7 @@ export function Header() {
 
         await ServerInterface.logout();
         ClientStorage.clear();
-        window.location.replace("./index.html");
+        window.location.replace("./");
     }
 
     const username = ClientStorage.getUsername();

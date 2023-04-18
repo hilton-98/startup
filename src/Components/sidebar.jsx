@@ -6,10 +6,10 @@ import './sidebar.css';
 export function Sidebar() {
     
     const navLinkList = [
-        { name: "Home", path: "./index.html" },
-        { name: "To Do", path: "./toDo.html" },
-        { name: "Calendar", path: "./calendar.html" },
-        { name: "About", path: "./about.html" },
+        { name: "Home", path: "/index" },
+        { name: "To Do", path: "/toDo" },
+        { name: "Calendar", path: "/calendar" },
+        { name: "About", path: "/about" },
     ];
 
 

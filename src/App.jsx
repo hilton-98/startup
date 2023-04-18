@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink, Route, Routes } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
@@ -9,9 +10,12 @@ import { Footer } from "./components/footer";
 
 import { Login } from './login/login';
 import { HomeContent } from './home/homeContent';
+import { ToDo } from './toDo/toDo';
+import { Calendar } from './calendar/calendar';
+import { About } from './about/about';
 
 import AuthState from "./login/authState";
-import ClientStorage from './clientStorage';
+import ClientStorage from './interfaces/clientStorage';
 
 function App() {
 
@@ -50,18 +54,29 @@ function App() {
 
   }, [username]);
 
-
   return (
-    <div>
+    <div className="app-container">
       {authState === AuthState.AUTHENTICATED && <Header />}
+
       <main className="bg-secondary">
         {authState === AuthState.AUTHENTICATED && <Sidebar />}
-        {authState === AuthState.AUTHENTICATED && <HomeContent />}
-        {authState === AuthState.UNAUTHENTICATED && <Login setUsername={setUsername} />}
+        <Routes>
+          <Route path="/" element={(authState === AuthState.UNAUTHENTICATED && <Login setUsername={setUsername}/>) || (authState === AuthState.AUTHENTICATED && <HomeContent />)} exact></Route>
+          <Route path="/index" element={(authState === AuthState.UNAUTHENTICATED && <Login setUsername={setUsername}/>) || (authState === AuthState.AUTHENTICATED && <HomeContent />)} exact></Route>
+          <Route path="/toDo" element={<ToDo />}></Route>
+          <Route path="/calendar" element={<Calendar />}></Route>
+          <Route path="/about" element={<About />}></Route>
+
+        </Routes>
+
       </main>
       {authState === AuthState.AUTHENTICATED && <Footer />}
     </div>
   );
+}
+
+function NotFound() {
+  return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
 }
 
 export default App;

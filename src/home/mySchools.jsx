@@ -2,8 +2,8 @@ import React from 'react';
 
 import './mySchools.css';
 
-import ClientStorage from "../clientStorage";
-import ServerInterface from '../serverInterface';
+import ClientStorage from "../interfaces/clientStorage";
+import ServerInterface from '../interfaces/serverInterface';
 
 
 export function MySchools() {
