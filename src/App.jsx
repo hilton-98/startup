@@ -17,9 +17,10 @@ function App() {
 
   const [authState, setAuthState] = React.useState(AuthState.UNKOWN);
 
-  const username = ClientStorage.getUsername();
+  const [username, setUsername] = React.useState(ClientStorage.getUsername());
 
   React.useEffect(() => {
+
     if (username) {
       fetch(`/api/user/${username}`)
         .then((response) => {
@@ -28,11 +29,11 @@ function App() {
           }
         })
         .then((user) => {
-          const state = user?.authenticated ? AuthState.Authenticated : AuthState.Unauthenticated;
+          const state = user?.authenticated ? AuthState.AUTHENTICATED : AuthState.UNAUTHENTICATED;
           setAuthState(state);
         });
     } else {
-      setAuthState(AuthState.Unauthenticated);
+      setAuthState(AuthState.UNAUTHENTICATED);
     }
   }, [username]);
 
@@ -43,7 +44,7 @@ function App() {
       <main className="bg-secondary">
         {authState === AuthState.AUTHENTICATED && <Sidebar />}
         {authState === AuthState.AUTHENTICATED && <HomeContent />}
-        {authState !== AuthState.AUTHENTICATED && <Login />}
+        {authState !== AuthState.AUTHENTICATED && <Login setUsername={setUsername} />}
       </main>
       {authState === AuthState.AUTHENTICATED && <Footer />}
     </div>

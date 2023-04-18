@@ -52,7 +52,12 @@ export default class WebSocketInterface {
 
         const protocol = WebSocketInterface.getProtocol();
 
-        WebSocketInterface.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+        let port = window.location.port;
+        if (process.env.NODE_ENV !== 'production') {
+          port = 3000;
+        }
+
+        WebSocketInterface.socket = new WebSocket(`${protocol}://${port}/ws`);
 
         WebSocketInterface.socket.onopen = (event) => {};
         

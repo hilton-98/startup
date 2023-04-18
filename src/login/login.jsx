@@ -7,7 +7,7 @@ import ServerInterface from '../serverInterface';
 import WebSocketInterface from '../webSocketInterface';
 
 
-export function Login() {
+export function Login(props) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -17,7 +17,7 @@ export function Login() {
     
         if (response?.status === 200) {
             ClientStorage.setUsername(username);
-            // setUsername(username);   
+            props.setUsername(username);
         } else {
             setErrorMsg(`⚠ Error: ${response.obj.msg}`);
         }
@@ -29,7 +29,8 @@ export function Login() {
     }
     
     async function login() {
-        const response = await ServerInterface.login();
+
+        const response = await ServerInterface.login(username, password);
         loginOrCreate(response);
     }
     
@@ -37,7 +38,7 @@ export function Login() {
         return (username !== '' && password !== '');
     
     }
-    
+
     async function handleLogin() {
     
         if (!isValidUsernameAndPassword()) {

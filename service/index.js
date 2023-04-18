@@ -46,33 +46,38 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 apiRouter.post('/auth/login', async (req, res) => {
 
-    const user = await DB.getUser(req.body.username);
+  console.log("Logging in");
+  console.log('username: ' + req.body.username);
+  console.log('password: ' + req.body.password);
 
-    if (user) {
-      if (await bcrypt.compare(req.body.password, user.password)) {
-        setAuthCookie(res, user.token);
-        res.send({ id: user._id });
-        return;
-      }
+  const user = await DB.getUser(req.body.username);
+  console.log("user: " + JSON.stringify(user));
+
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
     }
-    res.status(401).send({ msg: 'Unauthorized' });
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
 });
 
 apiRouter.delete('/auth/logout', (__req, res) => {
 
-    res.clearCookie(authCookieName);
-    res.status(204).end();
+  res.clearCookie(authCookieName);
+  res.status(204).end();
 });
 
 // GetUser returns information about a user
 apiRouter.get('/user/:username', async (req, res) => {
-    const user = await DB.getUser(req.params.username);
-    if (user) {
-      const token = req?.cookies.token;
-      res.send({ username: user.username, authenticated: token === user.token });
-      return;
-    }
-    res.status(404).send({ msg: 'Unknown' });
+  const user = await DB.getUser(req.params.username);
+  if (user) {
+    const token = req?.cookies.token;
+    res.send({ username: user.username, authenticated: token === user.token });
+    return;
+  }
+  res.status(404).send({ msg: 'Unknown' });
 });
 
 // secureApiRouter verifies credentials for endpoints
@@ -81,14 +86,14 @@ apiRouter.use(secureApiRouter);
 
 
 secureApiRouter.use(async (req, res, next) => {
-    authToken = req.cookies[authCookieName];
-    const user = await DB.getUserByToken(authToken);
-    if (user) {
-        req.user = user;
-      next();
-    } else {
-      res.status(401).send({ msg: 'Unauthorized' });
-    }
+  authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+      req.user = user;
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
 });
 
 // GetSchools
