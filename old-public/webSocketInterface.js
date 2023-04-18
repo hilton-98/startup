@@ -1,4 +1,4 @@
-import ClientStorage from './clientStorage.js';
+import ClientStorage from '../src/clientStorage.js';
 
 export default class WebSocketInterface {
 

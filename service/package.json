@@ -1,0 +1,28 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "- Editing from VS Code! - Now, editing from GitHub in the browser. - Creating a merge conflict... #### Notes: > - Use Dillinger for markdown editing. > - Practice more with GitHub. > - Use cmd + right arrow key to go to end of line in VSCode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hilton-98/startup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hilton-98/startup/issues"
+  },
+  "homepage": "https://github.com/hilton-98/startup#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "mongodb": "^5.2.0",
+    "uuid": "^9.0.0",
+    "ws": "^8.13.0"
+  }
+}

@@ -1,8 +1,8 @@
 import { addHeader } from "./components/header.js";
 import { addSidebar } from "./components/sidebar.js";
 import { addFooter } from "./components/footer.js";
-import ClientStorage from "./clientStorage.js";
-import ServerInterface from "./serverInterface.js";
+import ClientStorage from "../src/clientStorage.js";
+import ServerInterface from "../src/serverInterface.js";
 import WebSocketInterface from "./webSocketInterface.js";
 
 const COLS_PER_ROW = 3;

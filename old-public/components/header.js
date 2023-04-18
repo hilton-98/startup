@@ -1,5 +1,5 @@
-import ClientStorage from "../clientStorage.js";
-import ServerInterface from "../serverInterface.js";
+import ClientStorage from "../../src/clientStorage.js";
+import ServerInterface from "../../src/serverInterface.js";
 const APP_TITLE = "Runway";
 
 
