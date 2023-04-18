@@ -25,7 +25,6 @@ const errorMsgEl = document.getElementById('error-msg');
 
 let userInfoEl = null;
 let usernameDisplayEl = null;
-let logoutBtnEl = null;
 
 
 async function renderSchools() {
@@ -112,29 +111,6 @@ async function handleRemoveSchool(school) {
     renderSchools();
 }
 
-function isValidUsernameAndPassword() {
-    return (usernameEl.value !== '' && passwordEl.value !== '');
-
-}
-async function handleLogin() {
-
-    if (!isValidUsernameAndPassword()) {
-        return;
-    }
-
-    await login(usernameEl.value, passwordEl.value);
-    WebSocketInterface.init();
-}
-
-async function handleCreateAccount() {
-
-    if (!isValidUsernameAndPassword()) {
-        return;
-    }
-
-    await createUser(usernameEl.value, passwordEl.value);
-}
-
 async function loadSchools() {
 
     const serverSchools = await ServerInterface.getSchools();
@@ -147,13 +123,8 @@ async function loadSchools() {
 }
 
 function init() {
-    WebSocketInterface.configureWebSocket();
-    addHeader(headerEl);
-    addSidebar(sidebarEl, "Home");
-    addFooter(footerEl);
 
     usernameDisplayEl = document.getElementById('username-display');
-    logoutBtnEl = document.getElementById('logout-btn');
     userInfoEl = document.getElementById('user-info');
 }
 
@@ -171,38 +142,12 @@ function initLoggedOut() {
     logoutDisplay();
 }
 
-async function createUser(username, password) {
-    const response = await ServerInterface.createUser(username, password);
-    loginOrCreate(username, response);}
-
-async function login(username, password) {
-    const response = await ServerInterface.login(username, password);
-    loginOrCreate(username, response);
-}
-
-function loginOrCreate(username, response) {
-
-    if (response?.status === 200) {
-        ClientStorage.setUsername(username);
-        usernameDisplayEl.textContent = username;
-
-        loginDisplay();
-        renderSchools();
-        renderMessages();
-    } else {
-        errorMsgEl.textContent = `⚠ Error: ${response.obj.msg}`;
-    }
-}
-
 function logoutDisplay() {
 
     loginEl.hidden = false;
     contentEl.hidden = true;
     sidebarEl.hidden = true;
     userInfoEl.hidden = true;
-
-    loginBtnEl.addEventListener('click', handleLogin);
-    createAccountBtnEl.addEventListener('click', handleCreateAccount);
 }
 
 function loginDisplay() {
