@@ -1,15 +1,6 @@
-import { addHeader } from "./components/header.js";
-import { addSidebar } from "./components/sidebar.js";
-import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
 import ServerInterface from "./serverInterface.js";
-import WebSocketInterface from "../src/webSocketInterface.js";
 
-const bodyEl = document.querySelector('body');
-const headerEl = bodyEl.querySelector('header');
-const mainEl = bodyEl.querySelector('main');
-const sidebarEl = mainEl.querySelector('.sidebar');
-const footerEl = bodyEl.querySelector('footer');
 
 const daysEl = document.querySelector(".days");
 const currentDateEl = document.querySelector(".current-date");
@@ -159,17 +150,12 @@ function renderCalendar(currMonth, currYear) {
 
 function init() {
 
-    WebSocketInterface.configureWebSocket();
-    addHeader(headerEl);
-    addSidebar(sidebarEl, "Calendar");
-
     // getting new date, current year and month
     const date = new Date();
     let currMonth = date.getMonth();
     let currYear = date.getFullYear();
 
     renderCalendar(currMonth, currYear);
-    addFooter(footerEl);
 
     prevBtnEl.addEventListener('click', () => {
         currMonth -= 1;

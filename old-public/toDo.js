@@ -1,17 +1,9 @@
-import { addHeader } from "./components/header.js";
-import { addSidebar } from "./components/sidebar.js";
-import { addFooter } from "./components/footer.js";
 import ClientStorage from "./clientStorage.js";
 import ServerInterface from "./serverInterface.js";
 import WebSocketInterface from "./webSocketInterface.js";
 
 
-const bodyEl = document.querySelector('body');
-const headerEl = bodyEl.querySelector('header');
-const mainEl = bodyEl.querySelector('main');
-const sidebarEl = mainEl.querySelector('.sidebar');
 const tblBodyEl = document.getElementById("to-do-list-table-body");
-const footerEl = bodyEl.querySelector('footer');
 
 const addBtnEl = document.getElementById('add-btn');
 const removeBtnEl = document.getElementById('remove-btn');
@@ -232,13 +224,8 @@ async function loadSchools() {
 }
 
 async function init() {
-    WebSocketInterface.configureWebSocket();
-    addHeader(headerEl);
-    addSidebar(sidebarEl, "To Do");
 
     renderToDoList(tblBodyEl, await loadSchools());
-
-    addFooter(footerEl);
     
     addBtnEl.addEventListener('click', handleAddEvent);
     removeBtnEl.addEventListener('click', handleRemoveEvent);
