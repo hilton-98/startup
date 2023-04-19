@@ -41,7 +41,15 @@ export default class WebSocketInterface {
         } else {
             return 'wss';
         }
+    }
 
+    static getPort() {
+        let port = window.location.port;
+        if (process.env.NODE_ENV !== 'production') {
+          port = 3000;
+        }
+
+        return port;
     }
 
     static init() {
@@ -51,13 +59,9 @@ export default class WebSocketInterface {
         }
 
         const protocol = WebSocketInterface.getProtocol();
+        const port = WebSocketInterface.getPort();
 
-        let port = window.location.port;
-        if (process.env.NODE_ENV !== 'production') {
-          port = 3000;
-        }
-
-        WebSocketInterface.socket = new WebSocket(`${protocol}://${port}/ws`);
+        WebSocketInterface.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
         WebSocketInterface.socket.onopen = (event) => {};
         
@@ -66,6 +70,8 @@ export default class WebSocketInterface {
         WebSocketInterface.socket.onmessage = async (event) => {
 
           const msg = JSON.parse(await event.data.text());
+
+          console.log("Received message");
 
           if (msg.type === WebSocketInterface.SCHOOL_ADDED) {
             WebSocketInterface.addMessage(msg.from + ' added ' + msg.value + '!');
@@ -102,3 +108,5 @@ export default class WebSocketInterface {
         ClientStorage.addMessage(msg);
     }
 }
+
+WebSocketInterface.configureWebSocket();

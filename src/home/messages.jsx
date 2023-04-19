@@ -3,12 +3,13 @@ import React from 'react';
 import './messages.css';
 
 import ClientStorage from "../interfaces/clientStorage";
+import WebSocketInterface from '../interfaces/webSocketInterface';
 
 
 export function Messages() {
 
 
-    const [messages, setMessages] = React.useState(ClientStorage.getSchools());
+    const [messages, setMessages] = React.useState(ClientStorage.getMessages());
 
     function renderMessages() {
 
@@ -26,6 +27,8 @@ export function Messages() {
                 </tr>
             );
         }
+
+        return messagesEl;
     }
 
     const messagesEl = renderMessages();

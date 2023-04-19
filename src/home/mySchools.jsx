@@ -4,6 +4,7 @@ import './mySchools.css';
 
 import ClientStorage from "../interfaces/clientStorage";
 import ServerInterface from '../interfaces/serverInterface';
+import WebSocketInterface from '../interfaces/webSocketInterface';
 
 
 export function MySchools() {
@@ -78,21 +79,22 @@ export function MySchools() {
 
     async function removeSchool(school) {
 
-        const schools = await ServerInterface.removeSchool(school);
+        const serverSchools = await ServerInterface.removeSchool(school);
     
-        if (schools) {
-            ClientStorage.setSchools(schools);
-            setSchools(schools);
+        if (serverSchools) {
+            ClientStorage.setSchools(serverSchools);
+            setSchools(serverSchools);
         } else {
             ClientStorage.removeSchool(school.schoolName);
             setSchools(ClientStorage.getSchools());
         }
-
     }
     
     async function handleRemoveSchool(school) {
     
+        WebSocketInterface.schoolRemoved(school.schoolName);
         await removeSchool(school);
+        await loadSchools();
     }
 
     return (

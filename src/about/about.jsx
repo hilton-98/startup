@@ -55,10 +55,7 @@ export function About() {
                     </li>
                     <ul>
                         <li>
-                            You must have a day selected to see the events for that day. Selected days can be seen highlighted in blue.
-                        </li>
-                        <li>
-                            Use the previous and next chevron icons to view dates for the next or previous months.
+                            Use the previous and next chevron icons to view events for the next or previous months.
                         </li>
                     </ul>
                 </ol>

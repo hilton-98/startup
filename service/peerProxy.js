@@ -22,6 +22,7 @@ class PeerProxy {
 
         // Forward messages to everyone except the sender
         ws.on('message', function message(data) {
+          console.log("Gotcha");
             connections.forEach((c) => {
                 if (c.id !== connection.id) {
                     c.ws.send(data);
