@@ -11,9 +11,14 @@ export function ToDo() {
     const [schools, setSchools] = React.useState({});
     const [numEmptyRows, setNumEmptyRows] = React.useState(0);
     const [selectedRowNum, setSelectedRowNum] = React.useState(null);
+    const [editableRows, setEditableRows] = React.useState([]);
 
     const toDoListEl = renderToDoList();
 
+    React.useEffect(() => {
+        loadSchools();
+    }, []);
+    
     async function loadSchools() {
 
         const serverSchools = await ServerInterface.getSchools();
@@ -25,14 +30,8 @@ export function ToDo() {
         }
     }
 
-    React.useEffect(() => {
-        loadSchools();
-    }, []);
-
-
     function handleTblRowSelect(selectedRow) {
     
-        console.log("row selected: " + selectedRow);
         setSelectedRowNum(selectedRow);
     }
 
@@ -51,12 +50,13 @@ export function ToDo() {
 
         const schoolsMap = Object.entries(schools);
 
-        let rowNum = 0;
+        let key = 0;
         for (const [schoolName, school] of schoolsMap) {
 
-            const eventNum = rowNum;
 
             for (const event of school.events) {
+
+                const eventNum = key;
 
                 toDoListEl.push(
                     <tr key={eventNum} className={getClassName(eventNum)} onClick={() => {handleTblRowSelect(eventNum)}}>
@@ -71,13 +71,13 @@ export function ToDo() {
                         </td>
                     </tr>
                 );
-                rowNum++;
+                key++;
             }
         }
 
         for (let i = 0; i < numEmptyRows; i++) {
 
-            const eventNum = rowNum;
+            const eventNum = key;
 
             toDoListEl.push(
                 <tr key={eventNum} className={getClassName(eventNum)} onClick={() => {handleTblRowSelect(eventNum)}}>
@@ -95,7 +95,7 @@ export function ToDo() {
                     </td>
                 </tr>
             );
-            rowNum++;
+            key++;
         }
 
         return toDoListEl;
@@ -112,14 +112,6 @@ export function ToDo() {
         if (selectedRowNum === null) {
             return;
         }
-
-        const tblBodyEl = document.getElementById("to-do-list-tbl-body");
-        const selectedRow = tblBodyEl.querySelector(".selected-row");
-        console.log("selectedRow: " + selectedRow);
-        tblBodyEl.removeChild(selectedRow);
-
-
-        console.log("Selected row num: " + selectedRowNum);
 
         const schoolsMap = Object.entries(schools);
 

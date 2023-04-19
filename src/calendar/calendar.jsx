@@ -15,10 +15,10 @@ export function Calendar() {
     const [events, setEvents] = React.useState({});
 
     React.useEffect(() => {
-        getEvents();
+        loadEvents();
     }, []);
             
-    async function getEvents() {
+    async function loadEvents() {
     
         const serverEvents = await ServerInterface.getEvents();
         if (serverEvents) {

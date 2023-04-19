@@ -15,6 +15,9 @@ export function Sidebar() {
 
     let path = window.location.pathname;
     let pageName = path.split("/").pop();
+    if (pageName === '' || pageName === '/') {
+        pageName = '/index';
+    }
 
     const navLinksEl = [];
     for (let i = 0; i < navLinkList.length; i++) {
