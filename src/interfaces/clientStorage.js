@@ -82,15 +82,11 @@ export default class ClientStorage {
     }
 
     static addMessage(msg) {
-        console.log("Adding message");
 
         const messages = ClientStorage.getMessages();
         messages.push(msg);
         if (messages.length > ClientStorage.MAX_MESSAGES) {
-            console.log("Need to pull a message out");
         }
         ClientStorage.setMessages(messages);
-        console.log("Messages: " + JSON.stringify(messages));
-        console.log("ClientStorage messages: " + JSON.stringify(ClientStorage.getMessages()));
     }
 }

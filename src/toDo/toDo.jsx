@@ -8,26 +8,27 @@ import WebSocketInterface from "../interfaces/webSocketInterface.js";
 
 export function ToDo() {
 
-    const [schools, setSchools] = React.useState({});
-    const [numEmptyRows, setNumEmptyRows] = React.useState(0);
     const [selectedRowNum, setSelectedRowNum] = React.useState(null);
-    const [editableRows, setEditableRows] = React.useState([]);
+    const [eventRows, setEventRows] = React.useState([]);
 
-    const toDoListEl = renderToDoList();
+    const eventRowsEl = renderEvents();
 
     React.useEffect(() => {
-        loadSchools();
+        loadEvents();
     }, []);
     
-    async function loadSchools() {
+    async function loadEvents() {
 
-        const serverSchools = await ServerInterface.getSchools();
+        const serverEvents = await ServerInterface.getEvents();
 
-        if (serverSchools) {
-            setSchools(serverSchools);
-        } else {
-            setSchools(ClientStorage.getSchools());
+        const newEventRows = [];
+        for (const [eventDate, eventList] of Object.entries(serverEvents)) {
+
+            for (const event of eventList) {
+                newEventRows.push({edittable: false, schoolName: event.schoolName, name: event.name, date: eventDate });
+            }
         }
+        setEventRows(newEventRows);
     }
 
     function handleTblRowSelect(selectedRow) {
@@ -44,132 +45,103 @@ export function ToDo() {
         }
     }
 
-    function renderToDoList() {
-        
-        const toDoListEl = [];
+    function handleSchoolNameChange(e) {
 
-        const schoolsMap = Object.entries(schools);
+        const newEventRows = JSON.parse(JSON.stringify(eventRows));
+        newEventRows[selectedRowNum].schoolName = e.target.value;
+        setEventRows(newEventRows);
+    }
+
+    function handleEventNameChange(e) {
+
+        const newEventRows = JSON.parse(JSON.stringify(eventRows));
+        newEventRows[selectedRowNum].name = e.target.value;
+        setEventRows(newEventRows);
+    }
+
+    function handleEventDateChange(e) {
+
+        const newEventRows = JSON.parse(JSON.stringify(eventRows));
+        newEventRows[selectedRowNum].date = e.target.value;
+        setEventRows(newEventRows);
+    }
+
+    function renderEvents() {
+        const eventRowsEl = [];
 
         let key = 0;
-        for (const [schoolName, school] of schoolsMap) {
+        for (const eventRow of eventRows) {
+            const eventNum = key;
 
-
-            for (const event of school.events) {
-
-                const eventNum = key;
-
-                toDoListEl.push(
+            if (!eventRow.edittable) {
+                eventRowsEl.push(
                     <tr key={eventNum} className={getClassName(eventNum)} onClick={() => {handleTblRowSelect(eventNum)}}>
                         <td className="to-do-list-table-element">
-                            {schoolName}
+                            {eventRow.schoolName}
                         </td>
                         <td className="to-do-list-table-element">
-                            {event.name}
+                            {eventRow.name}
                         </td>
                         <td className="to-do-list-table-element">
-                            {event.date}
+                            {eventRow.date}
                         </td>
                     </tr>
                 );
-                key++;
+            } else {
+                eventRowsEl.push(
+                    <tr key={eventNum} className={getClassName(eventNum)} onClick={() => {handleTblRowSelect(eventNum)}}>
+                        <td className="to-do-list-table-element">
+                            <input className="school-input" type="text" value={eventRow.schoolName} onChange={handleSchoolNameChange}>
+                            </input>
+                        </td>
+                        <td className="to-do-list-table-element">
+                            <input className="event-name-input" type="text" value={eventRow.name} onChange={handleEventNameChange}>
+                            </input>
+                        </td>
+                        <td className="to-do-list-table-element">
+                            <input className="event-date-input" type="date" value={eventRow.date} onChange={handleEventDateChange}>
+                            </input>
+                        </td>
+                    </tr>
+                );
             }
-        }
-
-        for (let i = 0; i < numEmptyRows; i++) {
-
-            const eventNum = key;
-
-            toDoListEl.push(
-                <tr key={eventNum} className={getClassName(eventNum)} onClick={() => {handleTblRowSelect(eventNum)}}>
-                    <td className="to-do-list-table-element">
-                        <input className="school-input" type="text">
-                        </input>
-                    </td>
-                    <td className="to-do-list-table-element">
-                        <input className="event-name-input" type="text">
-                        </input>
-                    </td>
-                    <td className="to-do-list-table-element">
-                        <input className="event-date-input" type="date">
-                        </input>
-                    </td>
-                </tr>
-            );
             key++;
         }
 
-        return toDoListEl;
+        return eventRowsEl;
     }
     
     function handleAdd() {
-        setNumEmptyRows(numEmptyRows + 1);
+
+        const newEventRows = JSON.parse(JSON.stringify(eventRows));
+        newEventRows.push({edittable: true, schoolName: '', name: '', date: ''});
+
+        setEventRows(newEventRows);
     }
     
     async function handleRemove() {
-
-        console.log("handle Remove");
 
         if (selectedRowNum === null) {
             return;
         }
 
-        const schoolsMap = Object.entries(schools);
 
-        let rowNum = 0;
-        for (const [schoolName, school] of schoolsMap) {
-
-            for (const event of school.events) {
-                if (rowNum === selectedRowNum) {
-
-                    let newSchools = schools;
-                    let newSchoolEvents = newSchools[schoolName].events;
-                    const eventIndex = newSchoolEvents.indexOf(event);
-
-                    newSchools[schoolName].events.splice(eventIndex, 1);
-
-                    setSchools(newSchools);
-                    setSelectedRowNum(null);
-                    return;
-                }
-                rowNum++;
-            }
-        }
-
-        setNumEmptyRows(numEmptyRows - 1);
+        let newEventRows = JSON.parse(JSON.stringify(eventRows));
+        newEventRows.splice(selectedRowNum, 1);
         setSelectedRowNum(null);
+        setEventRows(newEventRows);
     }
     
     function handleEdit() {
     
-    //     if (!currSelectedRow) {
-    //         return;
-    //     }
-    
-    //     const tblRowData = currSelectedRow.querySelectorAll(".to-do-list-table-element");
-    
-    //     if (tblRowData[0].querySelector(".school-input")) {
-    //         return;
-    //     }
-    
-    //     const schoolName = tblRowData[0].textContent;
-    //     const eventName = tblRowData[1].textContent;
-    //     const eventDate = tblRowData[2].textContent;
-    
-    //     for (const data of tblRowData) {
-    //         data.textContent = "";
-    //     }
-    
-    //     const schoolInputEl = getInputEl("school-input", "text");
-    //     schoolInputEl.value = schoolName;
-    //     tblRowData[0].appendChild(schoolInputEl);
-    
-    //     const eventNameInput = getInputEl("event-name-input", "text");
-    //     eventNameInput.value = eventName;
-    //     tblRowData[1].appendChild(eventNameInput);
-    
-    //     const eventDateInputEl = getInputEl("event-date-input", "date");
-    //     eventDateInputEl.value = eventDate;
-    //     tblRowData[2].appendChild(eventDateInputEl);
+        if (selectedRowNum === null) {
+            return;
+        }
+
+        const newEventRows = JSON.parse(JSON.stringify(eventRows));
+        newEventRows[selectedRowNum].edittable = true;
+        setEventRows(newEventRows);
+
     }
     
     
@@ -256,9 +228,14 @@ export function ToDo() {
         const schools = await getSchoolsFromTable();
         await saveSchools(schools);
 
-        setSchools(schools);
-        setNumEmptyRows(0);
         setSelectedRowNum(null);
+
+        const newEventRows = JSON.parse(JSON.stringify(eventRows));
+        for (const newEventRow of newEventRows) {
+            newEventRow.edittable = false;
+        }
+        setEventRows(newEventRows);
+
     }    
 
     return (
@@ -283,7 +260,7 @@ export function ToDo() {
                         </tr>
                     </thead>
                     <tbody id="to-do-list-tbl-body">
-                        {toDoListEl}
+                        {eventRowsEl}
                     </tbody>
                 </table>
             </div>

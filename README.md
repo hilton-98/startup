@@ -118,3 +118,4 @@ My brother recently applied to medical school, and it was such a pain for him to
 - Some things are extremely painful to do in react... Others are really easy. Adding callback functions to dynamic lists can be quite tricky.
 - You have to have a root JSX object when you return a React component. This can really screw with your CSS if you don't watch out for it, especially if you are using flexbox.
 - The useEffect() function is also very useful, and can be used to re-render after asynchronous calls.
+- Shallow copies are the enemy. Deep copies are your friend.
